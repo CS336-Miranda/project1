@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
 </head>
 <body>
 	<%
@@ -20,8 +19,8 @@
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 
-		//Get parameters from the HTML form on register.jsp
-		String userid = request.getParameter("username");   
+		//Get parameters from the HTML form on register.jsp 
+		String email = request.getParameter("email");   
     	String pwd = request.getParameter("password");
 
 		//Make an insert statement for the Sells table:
@@ -31,7 +30,7 @@
 		PreparedStatement ps = con.prepareStatement(insert);
 
 		//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-		ps.setString(1, userid);
+		ps.setString(1, email);
 		ps.setString(2, pwd);
 		ps.executeUpdate();
 		

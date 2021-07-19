@@ -98,3 +98,7 @@ input[type="password"]:focus, input[type="text"]:focus {
 .registerLink a:hover {
     text-decoration: underline;
 }
+#btnSignIn[disabled="disabled"]{
+	background-color: grey;
+	cursor: default;
+}

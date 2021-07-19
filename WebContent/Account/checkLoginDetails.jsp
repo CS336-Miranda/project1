@@ -2,7 +2,7 @@
 <%@include file="/master.html"%>
 <%@ page import ="java.sql.*" %>
 <%
-    String userid = request.getParameter("username");   
+    String email = request.getParameter("email");   
     String pwd = request.getParameter("password");
     
   //Get the database connection
@@ -13,9 +13,9 @@
  	Statement st = con.createStatement();
     
     ResultSet rs;
-    rs = st.executeQuery("select * from users where email='" + userid + "' and password='" + pwd + "'");
+    rs = st.executeQuery("select * from users where email='" + email + "' and password='" + pwd + "'");
     if (rs.next()) {
-        session.setAttribute("user", userid); // the username will be stored in the session
+        session.setAttribute("user", email); // the username will be stored in the session
         response.sendRedirect("../index.jsp");
     } else {
         out.println("Invalid password <a href='login.jsp'>try again</a>");

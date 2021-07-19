@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Registration Form</title>
    </head>
    <body>
      <form action="registerNewUser.jsp" method="POST">
@@ -12,15 +11,20 @@
             <img id="productLogo" src="${pageContext.request.contextPath}/Images/BuyMeLogo.png">
             <div class="divAppTitle">Group 10 - CS336 Summer 2021</div>
             <div class="register">
-                <input id="username" type="text" placeholder="Username" name="username">  
-                <input id="password" type="password" placeholder="password" name="password"> 
+                <input id="email" type="text" placeholder="Email" name="email" class="validate">  
+                <input id="password" type="password" placeholder="Password" name="password" class="validate"> 
                  
-              <input type="submit" id="btnSignIn" value="Register">
+              <input type="submit" id="btnSignIn" value="Register" disabled="disabled">
               <div class="registerLink"><a href="login.jsp">Return to log in</a></div>
             </div>
             <div class="shadow"></div>
         </div>
      
      </form>
+     <script>
+	     $(document).ready(function(){
+	    	 InitializeLoginRegisterEventHandlers(); 
+	     });
+     </script>
    </body>
 </html>
