@@ -14,6 +14,15 @@
 </script>
 </head>
 <body>
-<label id="lblResult"></label>
+<%
+try{
+	String sessionUser = session.getAttribute("user").toString();%>
+	<label id="lblResult"></label>
+<%
+}catch(Exception e){
+	response.sendRedirect("Account/login.jsp");
+}
+
+%>
 </body>
 </html>
