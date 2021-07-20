@@ -50,10 +50,6 @@ public class ApplicationDB {
 		}
 	}
 	
-	
-	
-	
-	
 	public static void main(String[] args) {
 		ApplicationDB dao = new ApplicationDB();
 		Connection connection = dao.getConnection();
@@ -61,7 +57,4 @@ public class ApplicationDB {
 		System.out.println(connection);		
 		dao.closeConnection(connection);
 	}
-	
-	
-
 }
