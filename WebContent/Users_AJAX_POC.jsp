@@ -22,7 +22,6 @@ try{
 }catch(Exception e){
 	response.sendRedirect("Account/login.jsp");
 }
-
 %>
 </body>
 </html>
