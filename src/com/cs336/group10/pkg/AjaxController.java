@@ -58,6 +58,7 @@ public class AjaxController extends HttpServlet {
 			
 			PrintWriter out = response.getWriter();
 	        out.print(jsonResult);
+	        con.close();
 	    
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
