@@ -14,9 +14,9 @@
     
     ResultSet rs;
     rs = st.executeQuery("select * from users where email='" + email + "' and password='" + pwd + "'");
-    db.closeConnection(con);
     if (rs.next()) {
         session.setAttribute("user", email); // the username will be stored in the session
+        db.closeConnection(con);
         response.sendRedirect("../index.jsp");
     } else {
         out.println("Invalid password <a href='login.jsp'>try again</a>");
