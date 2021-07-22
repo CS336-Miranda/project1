@@ -7,7 +7,6 @@
    </head>
    
    <body>
-      Hello world.
 <%
 try{
 	String sessionUser = session.getAttribute("user").toString();%>
