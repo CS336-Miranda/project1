@@ -35,7 +35,8 @@
 		ps.executeUpdate();
 		
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
-		con.close();
+		db.closeConnection(con);
+
 		//out.print("Registration succeeded <a href='login.jsp'>Return to login.</a>");
         session.setAttribute("user", email); // the username will be stored in the session
         response.sendRedirect("../index.jsp");
