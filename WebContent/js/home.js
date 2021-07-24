@@ -20,11 +20,11 @@ function InitializeEventHandlers(){
 	
 	$('#btnAdminCenter').on('click', function(e){
 		e.preventDefault();
-		window.location.href='Admin/adminCenter.jsp';
+		window.location.href='../Admin/adminCenter.jsp';
 	});
 	
 	$('#btnCustomerRepCenter').on('click', function(e){
 		e.preventDefault();
-		window.location.href='CustomerRep/customerRepCenter.jsp';
+		window.location.href='../CustomerRep/customerRepCenter.jsp';
 	});
 }

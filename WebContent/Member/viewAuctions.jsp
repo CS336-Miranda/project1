@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@include file="../MasterFiles/master.html"%>
-<%@include file="../MasterFiles/customerRepMaster.html"%>
+<%@include file="../MasterFiles/member.html"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -8,6 +9,6 @@
 <meta charset="ISO-8859-1">
 </head>
 <body>
-   <a href='/BuyMe/Account/logout.jsp'>Log out</a> - Customer Rep Center
+View Auctions
 </body>
 </html>
