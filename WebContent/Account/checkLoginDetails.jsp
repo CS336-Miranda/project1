@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" import="com.cs336.group10.pkg.*"%>
-<%@include file="/master.html"%>
+<%@include file="../MasterFiles/master.html"%>
 <%@ page import ="java.sql.*" %>
 <%
     String email = request.getParameter("email");   
