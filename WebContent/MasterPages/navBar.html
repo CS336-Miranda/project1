@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+    /* Stackoverflow preview fix, please ignore */
+    .navbar-nav {
+      flex-direction: row;
+    }
+    
+    .nav-link {
+      padding-right: .5rem !important;
+      padding-left: .5rem !important;
+    }
+    
+    /* Fixes dropdown menus placed on the right side */
+    .ml-auto .dropdown-menu {
+      left: auto !important;
+      right: 0px;
+    }
+  </style>
+</head>
+<body>
+   <%
+try{
+	String sessionUser = session.getAttribute("user").toString();
+		
+}catch(Exception e){
+	response.sendRedirect("/BuyMe/Account/login.jsp");
+}
+
+%>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"><img id="imgNavBarLogo" src="/BuyMe/Images/BuyMeLogo.png" alt="" width="90" height="45"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/BuyMe/Member/home.jsp">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/BuyMe/Member/createAuction.jsp">Create Auction</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/BuyMe/Member/viewAuctions.jsp">View Auctions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/BuyMe/Member/questions.jsp">Questions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/BuyMe/Admin/adminCenter.jsp">Admin Center</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="customerRepCenter.jsp">Customer Rep Center</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/BuyMe/Account/logout.jsp">Log Out</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item disabled">
+        <a class="nav-link" href="/BuyMe/Member/home.jsp"><label name="lblnavBarUserName"><% String sessionUser = session.getAttribute("user").toString();%><%=sessionUser%></label></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</body>
+</html>

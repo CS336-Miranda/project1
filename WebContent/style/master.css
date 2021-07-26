@@ -2,6 +2,10 @@
 body {
   background-color: rgba(5,55,80,1);
   color: white;
+  overflow-x: hidden;
+}
+div.content {
+	margin: 0 15px;	
 }
 a {
 	color: white;

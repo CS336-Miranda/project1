@@ -37,6 +37,9 @@ public class AjaxController extends HttpServlet {
 		  case "ListAllUsers":
 			  _listAllUsers(request, response);
 		    break;
+		  case "QuestionsAll":
+			  _questionsAll(request, response);
+		    break;
 		  default:
 		    // code block
 		}
@@ -65,13 +68,89 @@ public class AjaxController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
+	private void _questionsAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+		 	Connection con = db.getConnection();
+			
+		 	String sqlQuery = "select * from questions;";
+			PreparedStatement ps = con.prepareStatement(sqlQuery);
+			
+			 ResultSet resultSet = ps.executeQuery();	 
+		    
+			 JSONConverter jc = new JSONConverter();
+			 String jsonResult = jc.convertToJSON(resultSet);
+			
+			PrintWriter out = response.getWriter();
+	        out.print(jsonResult);
+	        db.closeConnection(con);
+	    
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
+		switch(request.getParameter("fn")) {
+		  case "questionsAddNew":
+			  _questionsAddNew(request, response);
+		    break;
+		  default:
+		    // code block
+		}
+	}
+	
+	private void _questionsAddNew(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();
+
+			String question = request.getParameter("question");
+			String email = request.getParameter("email");
+
+			response.setContentType("text/json");
+	        response.setCharacterEncoding("UTF-8");
+	        
+			String insert = "insert into questions (question, askTime) "
+					+ "VALUES (?,NOW())";
+			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
+			PreparedStatement ps = con.prepareStatement(insert);
+
+			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
+			ps.setString(1, question);
+			int result = ps.executeUpdate();
+
+			String sqlQuery = "select LAST_INSERT_ID() id from questions;";
+			ps = con.prepareStatement(sqlQuery);
+			ResultSet resultSet = ps.executeQuery();
+			int lastInsertId = (Integer) resultSet.getObject("id");
+			
+			insert = "insert into asks (email, questionId) "
+					+ "VALUES (?," + lastInsertId + ")";
+			
+			ps = con.prepareStatement(insert);
+			ps.setString(1, email);
+			result = ps.executeUpdate();
+			
+			
+	        //response.sendRedirect("/BuyMe/Member/questions.jsp");
+			PrintWriter out = response.getWriter();
+	        out.print(result);
+				
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

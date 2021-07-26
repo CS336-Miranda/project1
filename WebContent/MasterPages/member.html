@@ -6,10 +6,7 @@
 <body>
    <%
 try{
-	String sessionUser = session.getAttribute("user").toString();%>
-	Welcome <%=sessionUser%>
-	<a href='../Account/logout.jsp'>Log out</a>
-<%
+	String sessionUser = session.getAttribute("user").toString();
 }catch(Exception e){
 	response.sendRedirect("/BuyMe/Account/login.jsp");
 }
