@@ -132,27 +132,24 @@ public class AjaxController extends HttpServlet {
 
 			//Get Last inserted record id
 			String sqlQuery = "select LAST_INSERT_ID() id;";
-			PreparedStatement ps2 = con.prepareStatement(sqlQuery);
-			ResultSet resultSet = ps2.executeQuery();
-			System.out.println(resultSet);
+			ps = con.prepareStatement(sqlQuery);
+			ResultSet resultSet = ps.executeQuery();
 			
 			int lastInsertId = 0;
 			while (resultSet.next()) {
 				lastInsertId = ((BigInteger) resultSet.getObject("id")).intValue();
 			}
 			
-			String insert2 = "insert into asks (email, questionId) "
+			insert = "insert into asks (email, questionId) "
 					+ "VALUES (?,?)";
 			
-			PreparedStatement ps3 = con.prepareStatement(insert2);
-			ps3.setString(1, email);
-			ps3.setNString(2, String.valueOf(lastInsertId));
-			int result3 = ps3.executeUpdate();
+			ps = con.prepareStatement(insert);
+			ps.setString(1, email);
+			ps.setNString(2, String.valueOf(lastInsertId));
+			result = ps.executeUpdate();
 			
-			
-	        //response.sendRedirect("/BuyMe/Member/questions.jsp");
 			PrintWriter out = response.getWriter();
-	        out.print(result3);
+	        out.print(result);
 				
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
