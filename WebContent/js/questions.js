@@ -64,7 +64,8 @@ function InitializeQuestionsGrid(gridData){
                     }
                 }
             },
-            pageSize: 20
+            pageSize: 20,
+  			sort: { field: "asktime", dir: "desc" },
         },
         height: 550,
         filterable: true,

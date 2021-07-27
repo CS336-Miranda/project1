@@ -7,6 +7,9 @@
    <%
 try{
 	String sessionUser = session.getAttribute("user").toString();
+	session.setAttribute("user", sessionUser);
+	
+	
 }catch(Exception e){
 	response.sendRedirect("/BuyMe/Account/login.jsp");
 }

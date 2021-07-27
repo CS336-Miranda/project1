@@ -7,6 +7,8 @@
 <%
 try{
 	String sessionUser = session.getAttribute("user").toString();
+	session.setAttribute("user", sessionUser);%>
+	
 	String sessionUserRole = session.getAttribute("role").toString();
 
 	if(!sessionUserRole.trim().equals("admin")){
