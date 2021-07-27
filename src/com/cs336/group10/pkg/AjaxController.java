@@ -1,6 +1,7 @@
 package com.cs336.group10.pkg;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -129,22 +130,29 @@ public class AjaxController extends HttpServlet {
 			ps.setString(1, question);
 			int result = ps.executeUpdate();
 
-			String sqlQuery = "select LAST_INSERT_ID() id from questions;";
-			ps = con.prepareStatement(sqlQuery);
-			ResultSet resultSet = ps.executeQuery();
-			int lastInsertId = (Integer) resultSet.getObject("id");
+			//Get Last inserted record id
+			String sqlQuery = "select LAST_INSERT_ID() id;";
+			PreparedStatement ps2 = con.prepareStatement(sqlQuery);
+			ResultSet resultSet = ps2.executeQuery();
+			System.out.println(resultSet);
 			
-			insert = "insert into asks (email, questionId) "
-					+ "VALUES (?," + lastInsertId + ")";
+			int lastInsertId = 0;
+			while (resultSet.next()) {
+				lastInsertId = ((BigInteger) resultSet.getObject("id")).intValue();
+			}
 			
-			ps = con.prepareStatement(insert);
-			ps.setString(1, email);
-			result = ps.executeUpdate();
+			String insert2 = "insert into asks (email, questionId) "
+					+ "VALUES (?,?)";
+			
+			PreparedStatement ps3 = con.prepareStatement(insert2);
+			ps3.setString(1, email);
+			ps3.setNString(2, String.valueOf(lastInsertId));
+			int result3 = ps3.executeUpdate();
 			
 			
 	        //response.sendRedirect("/BuyMe/Member/questions.jsp");
 			PrintWriter out = response.getWriter();
-	        out.print(result);
+	        out.print(result3);
 				
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
