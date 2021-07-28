@@ -33,6 +33,7 @@ function GetAllQuestions(){
 	$.when(GetData('QuestionsAll','Questions')).done(function(data){
 		//InitializeDataTable(JSON.parse(data).d);
 		InitializeQuestionsGrid(JSON.parse(data).d);
+		//$('#grdQuestions').text(data);
 		
 	});
 }
@@ -65,11 +66,11 @@ function InitializeQuestionsGrid(gridData){
                     }
                 }
             },
-            pageSize: 20,
-  			sort: { field: "askTime", dir: "desc" },
+            pageSize: 8,
+  			sort: { field: "questionId", dir: "desc" },
         },
-        height: 550,
-        filterable: true,
+        height: 600,
+        filterable: false,
         sortable: true,
         pageable: true,
         columns: [{
@@ -100,5 +101,5 @@ function InitializeQuestionsGrid(gridData){
 
 function ConvertUTCToLocalTime(askTime){
 	var date = new Date(askTime + ' UTC');
-	return date;
+	return kendo.toString(date, "g");
 }

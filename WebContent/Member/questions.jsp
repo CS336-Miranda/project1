@@ -14,7 +14,7 @@
 	<div class="row">
 		<div class="col-10">
 			<div class="mb-3">
-			  <label for="txtQuestion" class="form-label">Ask new question:</label>
+			  <label for="txtQuestion" class="form-label"><h1>Ask a question</h1></label>
 			  <textarea class="form-control" id="txtQuestion" rows="3"></textarea><br/>
 			  <button id="btnSubmit" type="submit" class="btn btn-primary mb-3">Post</button>  
 			</div>
