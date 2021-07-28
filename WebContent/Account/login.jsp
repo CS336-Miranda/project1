@@ -5,7 +5,7 @@
    <head>
    </head>
    <body>
-     <form action="checkLoginDetails.jsp" method="POST">
+     <form action="checkLoginDetails.jsp?redirect=<%= request.getParameter("redirect")%>" method="POST">
      
      	<div id="divAuth">
             <img id="productLogo" src="${pageContext.request.contextPath}/Images/BuyMeLogo.png">

@@ -4,10 +4,12 @@
 <meta charset="ISO-8859-1">
 </head>
 <body>
+<%@ page import="java.net.*" %>
+
 <%
 try{
 	String sessionUser = session.getAttribute("user").toString();
-	session.setAttribute("user", sessionUser);%>
+	session.setAttribute("user", sessionUser);
 	
 	String sessionUserRole = session.getAttribute("role").toString();
 
@@ -16,7 +18,10 @@ try{
 	}
 	%> Welcome <%=sessionUser%> <% 
 }catch(Exception e){
-	response.sendRedirect("/BuyMe/Account/login.jsp");
+	String uri = request.getRequestURI();
+	//String pageName = uri.substring(uri.lastIndexOf("/")+1);
+	String encodedurl = URLEncoder.encode(uri.toString(),"UTF-8"); 
+	response.sendRedirect("/BuyMe/Account/login.jsp?redirect=" + encodedurl);
 }
 
 %>

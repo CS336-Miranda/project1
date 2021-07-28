@@ -43,7 +43,7 @@ div#divAuth {
   text-align: center;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.2), 0 1px 0 #fff;
 }
-input[type="password"], input[type="text"] {
+.login input[type="password"], .login input[type="text"], .register input[type="password"], .register input[type="text"] {
   border: 1px solid #a1a3a3;
   border-radius: 4px;
   box-shadow: 0 1px #fff;
@@ -55,7 +55,7 @@ input[type="password"], input[type="text"] {
   transition: box-shadow 0.3s;
   width: 220px;
 }
-input[type="password"]:focus, input[type="text"]:focus {
+.login input[type="password"]:focus, .login input[type="text"]:focus, .register input[type="password"]:focus, .register input[type="text"]:focus  {
   box-shadow: 0 0 4px 1px rgba(55, 166, 155, 0.3);
   outline: 0;
 }
