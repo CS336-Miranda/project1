@@ -28,7 +28,6 @@
 	</div>
 </div>
 
-
    <script>   
    $.getScript("../js/questions.js?rev=" + Date.now(), function( data, textStatus, jqxhr ) {
 	 });

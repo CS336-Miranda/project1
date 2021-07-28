@@ -18,77 +18,87 @@ function PostQuestion(){
 	var queryData = {
 		fn: functionName,
 		question: userQuestion,
-		email: $('#lblnavBarUserName').text()
+		email: $('#lblnavBarUserName').text(),
+		timestamp: new Date().toISOString().slice(0, 19).replace('T', ' ')
 	}
 	
 	return $.ajax({
 		type:'POST',
-		url:'/BuyMe/AjaxController',
+		url:'/BuyMe/QuestionsAjaxController',
 		data: queryData
 	});
 }
 
 function GetAllQuestions(){
-	$.when(GetData('QuestionsAll')).done(function(data){
+	$.when(GetData('QuestionsAll','Questions')).done(function(data){
 		//InitializeDataTable(JSON.parse(data).d);
 		InitializeQuestionsGrid(JSON.parse(data).d);
 		
 	});
 }
 
-/*function InitializeDataTable(gridData){
-	$('#tblQuestions').DataTable({
-			data: gridData,
-		    columns: [
-		        { data: 'questionid' },
-		        { data: 'question' },
-		        { data: 'asktime' }
-		    ]
-		});
-}*/
-
-function ConvertUTCToLocalTime(dt){
-	return dt;//.toLocaleDateString()
+function NormalizeGridData(gridData){
+	
 }
 
 function InitializeQuestionsGrid(gridData){
+	var kendoGrid = $('#grdQuestions').data("kendoGrid");
+
+	//Check if the element is already initialized with the Kendo Grid widget
+	if (kendoGrid)//Grid is initialized
+	{
+	   kendoGrid.destroy();
+	   $('#grdQuestions').empty();
+	}
+	
 	$("#grdQuestions").kendoGrid({
         dataSource: {
             data: gridData,
             schema: {
                 model: {
                     fields: {
-						questionid: { type: "number" },
+						questionId: { type: "number" },
                         question: { type: "string" },
-                        asktime: { type: "date" }
+                        askTime: { type: "date" },
+						answer: { type: "string" },
+						answerTime: { type: "date" }
                     }
                 }
             },
             pageSize: 20,
-  			sort: { field: "asktime", dir: "desc" },
+  			sort: { field: "askTime", dir: "desc" },
         },
         height: 550,
         filterable: true,
         sortable: true,
         pageable: true,
         columns: [{
-                field:"questionid",
+                field:"questionId",
 				title: "Id",
                 filterable: false,
 				width: 100
             },
             {
-                field: "asktime",
+                field: "askTime",
                 title: "Asked on",
                 format: "{0:MM/dd/yyyy H:mm tt}",
-				template: "#: ConvertUTCToLocalTime(asktime) #"
+				template: "#: ConvertUTCToLocalTime(askTime) #"
 
-            }, {
+            },{
                 field: "question",
                 title: "Question"
+            },{
+                field: "answer",
+                title: "Answer"
+            },{
+                field: "answerTime",
+                title: "Answered On"
             }
         ]
     });
 }
 
-
+function ConvertUTCToLocalTime(askTime){
+	var date = new Date(askTime + ' UTC');
+	return date;
+}

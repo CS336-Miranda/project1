@@ -2,10 +2,11 @@ $(document).ready(function(){
 
 });
 
-function GetData(functionName){
+function GetData(functionName,controllerName){
+	if(!controllerName) { controllerName = ''; }
 	return $.ajax({
 		type:'GET',
-		url:'/BuyMe/AjaxController?fn=' + functionName,
+		url:'/BuyMe/' + controllerName + 'AjaxController?fn=' + functionName,
 		success: function(result){
 			return result;
 		}
