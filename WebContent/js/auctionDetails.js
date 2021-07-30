@@ -2,28 +2,49 @@
 	var formValidationOccurred = false;
 
 	$(document).ready(function(){
-		PopulateAuctionDetails();
-		InitializeEventHandlers();
+		var auctionId = GetParameterByName('auctionId');
+		$.when(GetAuction(auctionId)).done(function(auctionData){
+			auctionData = JSON.parse(auctionData).d[0];
+			PopulateAuctionDetails(auctionData)
+			InitializeCurrencyFields();
+			DisableSelectFields();
+			InitializeEventHandlers();	
+			$('.auctionDetails').fadeIn();
+		});
 	});
 	
-	function PopulateAuctionDetails(){
-		var auctionId = GetParameterByName('auctionId');
-		$.when(GetAuction(auctionId)).done(function(data){
-			data = JSON.parse(data).d[0];
-			$('#txtTitle').val(data.title);
-			$('#txtDescription').val(data.description);
-			$('#txtStartTime').val(data.startTime);
-			$('#txtCloseTime').val(data.closeTime);
-			if(!data.highestBid){
-				$('#txtCurrentHighBid').val('');
-			}else{
-				$('#txtCurrentHighBid').val(data.highestBid);
-			}
+	function PopulateAuctionDetails(data){
+		$('#txtTitle').val(data.title);
+		$('#txtDescription').text(data.description);
+		$('#txtStartTime').val(kendo.toString(kendo.parseDate(data.startTime), "ddd MMM dd, yyyy h:mm tt" ));
+		$('#txtCloseTime').val(kendo.toString(kendo.parseDate(data.closeTime), "ddd MMM dd, yyyy h:mm tt" ));
+		if(!data.highestBid){
+			$('#txtCurrentHighBid').val('No bids yet... Get things started!');
+		}else{
 			$('#txtCurrentHighBid').val(data.highestBid);
-			
-			InitializeCurrencyFields();
-			
-		});
+		}
+		$('#txtCurrentHighBid').val(data.highestBid);
+		
+		var closeTime = kendo.parseDate(data.closeTime);
+		InitializeCountdownTimer(closeTime);
+		
+		$('#txtName').val(data.name);
+		$('#txtCategory').val('Electronics');
+		var subCategory = data.provider.length > 0 ? 'Cellphone' : data.size.length > 0 ? 'TV' : 'Laptop';
+		$('#txtSubCategory').val(subCategory);
+		
+		$('#txtCompany').val(data.company);
+		
+		$('#txtYear').val(data.year);
+		$('#txtColor').val(data.color);
+	}
+	
+	function InitializeCountdownTimer(closeTime){
+		$('#divCountdownTimer').countdown({until: closeTime, padZeroes: true});
+	}
+	
+	function DisableSelectFields(){
+		$('select option:not(:selected)').attr('disabled',true);
 	}
 	
 	function InitializeEventHandlers(){

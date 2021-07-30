@@ -39,9 +39,6 @@ public class BiddingAjaxController extends HttpServlet {
 			case "GetAuction":
 				_getAuction(request, response);
 				break;
-			case "AllBids":
-				_getAllBids(request, response);
-				break;
 		  default:
 		    // code block
 		}
@@ -55,7 +52,13 @@ public class BiddingAjaxController extends HttpServlet {
 			
 		 	int auctionId = Integer.parseInt(request.getParameter("auctionId"));
 		 	
-		 	String sqlQuery = "select * from auctions WHERE auctionId = ?;";
+		 	String sqlQuery = "SELECT a.auctionId, a.highestBid, a.minPrice, a.closeTime, a.startTime, a.title, a.description, a.bidIncrement, a.initialPrice, a.owner, a.winner, bs.itemId, e.name, e.company, e.year, e.color, l.touch, c.provider, t.size FROM _cs336_buyme.auctions a " + 
+		 			"JOIN _cs336_buyme.beingSold bs on a.auctionId = bs.auctionId " + 
+		 			"JOIN _cs336_buyme.electronics e on e.itemId = bs.itemId " + 
+		 			"LEFT OUTER JOIN _cs336_buyme.laptop l on (l.itemId = e.itemId) " + 
+		 			"LEFT OUTER JOIN _cs336_buyme.cellphone c on (c.itemId = e.itemId) " + 
+		 			"LEFT OUTER JOIN _cs336_buyme.tv t on (t.itemId = e.itemId) " + 
+		 			"WHERE a.auctionId = ?;";
 			PreparedStatement ps = con.prepareStatement(sqlQuery);
 			
 			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
@@ -71,36 +74,6 @@ public class BiddingAjaxController extends HttpServlet {
 	        db.closeConnection(con);
 	    
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	private void _getAllBids(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			//Get the database connection
-			ApplicationDB db = new ApplicationDB();	
-		 	Connection con = db.getConnection();
-			
-		 	int auctionId = Integer.parseInt(request.getParameter("auctionId"));
-		 	
-		 	String sqlQuery = "select * from bids WHERE auctionId = ?;";
-			PreparedStatement ps = con.prepareStatement(sqlQuery);
-			
-			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-			ps.setInt(1, auctionId);
-			
-			ResultSet resultSet = ps.executeQuery();	 
-		    
-			JSONConverter jc = new JSONConverter();
-			String jsonResult = jc.convertToJSON(resultSet);
-			
-			PrintWriter out = response.getWriter();
-	        out.print(jsonResult);
-	        db.closeConnection(con);
-	    
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -134,7 +107,6 @@ public class BiddingAjaxController extends HttpServlet {
 	        db.closeConnection(con);
 				
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -169,7 +141,6 @@ public class BiddingAjaxController extends HttpServlet {
 			return result;
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
 		}
