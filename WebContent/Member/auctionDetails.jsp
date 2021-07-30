@@ -29,7 +29,7 @@
 			<div class="col-xs-12 col-lg-9">
 			
 				<div class="row">
-				<div class="col-12"><h1>View Auction</h1></div>
+				<div class="col-12"><h1>Auction Details</h1></div>
 			</div>
 				<div class="row">
 					<div class="col-xs-12 col-lg-9">
