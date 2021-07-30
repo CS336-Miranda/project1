@@ -1,232 +1,111 @@
-$(document).ready(function(){
-	InitializeCurrencyFields();
-	//InitializeFormValidator();
-	InitializeEventHandlers_createAuction();
-});
+(function () {
+	var formValidationOccurred = false;
 
-function InitializeEventHandlers_createAuction(){
-	$('input[type="number"].int').on('keydown', function(e){
-		if(event.key==='.'){event.preventDefault();}
+	$(document).ready(function(){
+		InitializeCurrencyFields();
+		InitializeEventHandlers_createAuction();
 	});
 	
-	$('#ddlSubCategory').on('change',function(e){
-		$('input.subCatAttr').val('');
-		$('select.boolean').val(0);
-		$('.subCategoryAttributes').hide();
-		InitializeFormValidator();
-		$('.' + $(this).val()).fadeIn();
-	});
-	
-	$('#txtTVSize').on('keypress', function(e){
-		if(this.value.length==5) return false;
-	});
-	
-	$('#txtYear').on('keypress', function(e){
-		if(this.value.length==4) return false;
-	});
-	
-	$('#btnCreateAuction').on('click', function(e){
-		e.preventDefault();
-		CreateAuction();
-		alert('Your auction has been created.');
-		window.location.href = '/BuyMe/Member/viewAuctions.jsp';
-	});
-	
-}
-
-function InitializeCurrencyFields(){
-	$('.currency').on('change', function(e){
-		$(this).val(parseFloat($(this).val()).toFixed(2));
-	});	
-}
-
-function InitializeFormValidator(){
-	/*var bootstrapValidator = $('#validatedForm').data('bootstrapValidator');
-
-	if(bootstrapValidator !== undefined){ 
-		bootstrapValidator.destroy();
-		$('#validatedForm').data('bootstrapValidator', null);
-		$('#validatedForm').bootstrapValidator(); 	
-	}*/
-	$('#validatedForm').bootstrapValidator({
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: requiredFields(),
-        submitHandler: function(validator, form, submitButton) {
-            CreateAuction();
-			alert('Your auction has been created.');
-			window.location.href = '/BuyMe/Member/viewAuctions.jsp';
-        }
-    });
-
-}
-
-
-Date.prototype.addDays = function(days) {
-    var date = new Date(this.valueOf());
-    date.setDate(date.getDate() + days);
-    return date;
-}
-
-function CreateAuction(){
-	var startTime = new Date();
-	startTime = startTime.addDays(parseInt($('#ddlAuctionLength').val()));
-	startTime = kendo.toString(startTime, 'yyyy-MM-dd HH:mm:ss');
-	var queryData = {
-		fn: 'auctionsAddNew',
-		title: $('#txtTitle').val(),
-		description: $('#txtDescription').val(),
-		name: $('#txtName').val(),
-		category: $('#ddlCategory').val(),
-		subcategory: $('#ddlSubCategory').val(),
-		laptopTouchscreen: $('#ddlLaptopTouchScreen').val(),
-		cellphoneProvider: $('#txtCellphoneProvider').val(),
-		tvSize: $('#txtTVSize').val(),
-		company: $('#txtCompany').val(),
-		year: $('#txtYear').val(),
-		color: $('#txtColor').val(),
-		startTime: startTime,
-		initialPrice: $('#txtInitialPrice').val(),
-		bidIncrement: $('#txtBidIncrement').val(),
-		minPrice: $('#txtMinPrice').val(),
-		owner: $('#lblnavBarUserName').text()
+	function InitializeEventHandlers_createAuction(){
+		$('input[type="number"].int').on('keydown', function(e){
+			if(event.key==='.'){event.preventDefault();}
+		});
+		
+		$('#ddlSubCategory').on('change',function(e){
+			$('input.subCatAttr').val('');
+			$('select.boolean').val(0);
+			$('.subCategoryAttributes').hide();
+			$('.' + $(this).val()).fadeIn();
+		});
+		
+		$('#txtTVSize').on('keypress', function(e){
+			if(this.value.length==5) return false;
+		});
+		
+		$('#txtYear').on('keypress', function(e){
+			if(this.value.length==4) return false;
+		});
+		
+		$('#btnCreateAuction').on('click', function(e){
+			e.preventDefault();
+			if(validateForm()){
+				CreateAuction();
+				alert('Your auction has been created.');
+				window.location.href = '/BuyMe/Member/viewAuctions.jsp';			
+			}
+		});
+		
 	}
 	
-	return $.ajax({
-		type:'POST',
-		url:'/BuyMe/CreateAuctionAjaxController',
-		data: queryData
-	});
-}
-
-function requiredFields(){
-	switch($('#ddlSubCategory').val()){
-		/*case 'cellphone':
-			var fields = {
-	            Title: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Title is required and cannot be empty'
-	                    }
-	                }
-	            },
-				AuctionLength: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Auction Length is required.'
-	                    }
-	                }
-	            },
-				SubCategory: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Subcategory is required.'
-	                    }
-	                }
-	            },
-				InitialPrice: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Initial Price is required.'
-	                    }
-	                }
-	            },
-				BidIncrement: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Bid Increment is required.'
-	                    }
-	                }
-	            },
-				MinPrice: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Min. Reserve Price is required.'
-	                    }
-	                }
-	            },
-				Description: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Description is required.'
-	                    }
-	                }
-	            },
-				CellphoneProvider: {
-					validators: {
-						notEmpty: {
-							message: 'Provider is required.'
-						}
-					}
-				}
-			};
-
-			break;*/
-		default:
-			var fields = {
-	            Title: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Title is required and cannot be empty'
-	                    }
-	                }
-	            },
-				AuctionLength: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Auction Length is required.'
-	                    }
-	                }
-	            },
-				SubCategory: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Subcategory is required.'
-	                    }
-	                }
-	            },
-				/*InitialPrice: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Initial Price is required.'
-	                    }
-	                }
-	            },
-				BidIncrement: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Bid Increment is required.'
-	                    }
-	                }
-	            },
-				MinPrice: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Min. Reserve Price is required.'
-	                    }
-	                }
-	            },*/
-				Description: {
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Description is required.'
-	                    }
-	                }
-	            },
-				CellphoneProvider: {
-					validators: {
-						notEmpty: {
-							message: 'Provider is required.'
-						}
-					}
-				}
-			};
+	function InitializeCurrencyFields(){
+		$('.currency').on('change', function(e){
+			$(this).val(parseFloat($(this).val()).toFixed(2));
+		});	
+	}
+	
+	Date.prototype.addDays = function(days) {
+	    var date = new Date(this.valueOf());
+	    date.setDate(date.getDate() + days);
+	    return date;
+	}
+	
+	function CreateAuction(){
+		var startTime = new Date();
+		startTime = startTime.addDays(parseInt($('#ddlAuctionLength').val()));
+		startTime = kendo.toString(startTime, 'yyyy-MM-dd HH:mm:ss');
+		var queryData = {
+			fn: 'auctionsAddNew',
+			title: $('#txtTitle').val(),
+			description: $('#txtDescription').val(),
+			name: $('#txtName').val(),
+			category: $('#ddlCategory').val(),
+			subcategory: $('#ddlSubCategory').val(),
+			laptopTouchscreen: $('#ddlLaptopTouchScreen').val(),
+			cellphoneProvider: $('#txtCellphoneProvider').val(),
+			tvSize: $('#txtTVSize').val(),
+			company: $('#txtCompany').val(),
+			year: $('#txtYear').val(),
+			color: $('#txtColor').val(),
+			startTime: startTime,
+			initialPrice: $('#txtInitialPrice').val(),
+			bidIncrement: $('#txtBidIncrement').val(),
+			minPrice: $('#txtMinPrice').val(),
+			owner: $('#lblnavBarUserName').text()
 		}
+		
+		return $.ajax({
+			type:'POST',
+			url:'/BuyMe/CreateAuctionAjaxController',
+			data: queryData
+		});
+	}
 	
-	return fields;
-	
-}
+	function validateForm(){
+		var validated = true;
+		var requiredFields = ['txtTitle','txtDescription','txtName','ddlCategory','ddlSubCategory','txtCompany','txtYear','txtColor','ddlAuctionLength','txtInitialPrice','txtBidIncrement','txtMinPrice'];
+		
+		if($('#ddlSubCategory').val() === 'laptop'){ requiredFields.push('ddlLaptopTouchScreen'); }
+		if($('#ddlSubCategory').val() === 'cellphone'){ requiredFields.push('txtCellphoneProvider'); }
+		if($('#ddlSubCategory').val() === 'tv'){ requiredFields.push('txtTVSize'); }
+		
+		$.each(requiredFields, function(i, fieldName){
+			var field = $('#' + fieldName);
+			if(field && field.val().length === 0){
+				field.addClass('is-invalid');
+				validated = false;
+			}else{
+				field.removeClass('is-invalid');
+			}
+		});
+		
+		if(!formValidationOccurred){
+			$('#createAuctionForm').on('change', function(e){
+				validateForm();
+			});	
+			formValidationOccurred = true;
+		}
+		
+		return validated;
+	}
+})();
 

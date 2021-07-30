@@ -10,7 +10,7 @@
 <meta charset="ISO-8859-1">
 </head>
 <body>
-<form id="validatedForm" class="g-3" novalidate>
+<form id="createAuctionForm" class="g-3">
 <div class="content">
 	<div class="row">
 		<div class="col-3 d-none d-xl-block"></div>
