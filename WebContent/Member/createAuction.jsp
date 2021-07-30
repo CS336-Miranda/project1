@@ -127,10 +127,10 @@
 			  	</div>
 			</div>
 			<div class="row rowSubmitBtn">
-		<div class="col-12"><button id="btnCreateAuction" class="btn btn-primary" type="submit">Start Auction</button></div>
-
-	</div>
-		
+				<div class="col-xs-12 col-lg-3">
+					<button id="btnCreateAuction" class="btn btn-primary" type="submit">Start Auction</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
