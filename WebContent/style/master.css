@@ -112,6 +112,13 @@ div#divAuth {
     margin: 20px;
 }
 
+.row {
+	margin-top: 5px;
+}
+.rowSubmitBtn {
+	margin-top: 15px;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

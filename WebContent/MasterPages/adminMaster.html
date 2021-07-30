@@ -16,7 +16,6 @@ try{
 	if(!sessionUserRole.trim().equals("admin")){
 		throw new Exception("This page requires admin permissions.");
 	}
-	%> Welcome <%=sessionUser%> <% 
 }catch(Exception e){
 	String uri = request.getRequestURI();
 	//String pageName = uri.substring(uri.lastIndexOf("/")+1);
