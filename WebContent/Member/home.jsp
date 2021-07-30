@@ -22,7 +22,7 @@
 		    </div>
 	   </div>
 	   <div class="row">
-		    <div class="col-xs-1 col-lg-3 adminsOnly">
+	   <div class="col-xs-1 col-lg-3 adminsOnly">
 		    	<button id="btnAdminCenter" class="landingPageButton">Admin Center</button>
 		    </div>
 		    <div class="col-xs-1 col-lg-3 customerRepsOnly">

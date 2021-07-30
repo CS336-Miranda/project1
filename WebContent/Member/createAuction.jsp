@@ -8,6 +8,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<style>
+	#btnCreateAuction {
+		width: 100%;
+	}
+</style>
 </head>
 <body>
 <form id="createAuctionForm" class="g-3">
