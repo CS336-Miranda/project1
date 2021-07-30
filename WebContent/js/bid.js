@@ -1,45 +1,49 @@
-(function () {
+//(function () {
 	var formValidationOccurred = false;
 
 	$(document).ready(function(){
-		InitializeCurrencyFields();
-		InitializeEventHandlers_createAuction();
+		PopulateAuctionDetails();
+		InitializeEventHandlers();
 	});
 	
-	function InitializeEventHandlers_createAuction(){
-		$('input[type="number"].int').on('keydown', function(e){
-			if(event.key==='.'){event.preventDefault();}
-		});
-		
-		$('#ddlSubCategory').on('change',function(e){
-			$('input.subCatAttr').val('');
-			$('select.boolean').val(0);
-			$('.subCategoryAttributes').hide();
-			$('.' + $(this).val()).fadeIn();
-		});
-		
-		$('#txtTVSize').on('keypress', function(e){
-			if(this.value.length==5) return false;
-		});
-		
-		$('#txtYear').on('keypress', function(e){
-			if(this.value.length==4) return false;
-		});
-		
-		$('#btnCreateAuction').on('click', function(e){
-			e.preventDefault();
-			if(validateForm()){
-				CreateAuction();
-				alert('Your auction has been created.');
-				window.location.href = '/BuyMe/Member/viewAuctions.jsp';			
+	function PopulateAuctionDetails(){
+		var auctionId = GetParameterByName('auctionId');
+		$.when(GetAuction(auctionId)).done(function(data){
+			data = JSON.parse(data).d[0];
+			$('#txtTitle').val(data.title);
+			$('#txtDescription').val(data.description);
+			$('#txtStartTime').val(data.startTime);
+			$('#txtCloseTime').val(data.closeTime);
+			if(!data.highestBid){
+				$('#txtCurrentHighBid').val('');
+			}else{
+				$('#txtCurrentHighBid').val(data.highestBid);
 			}
-		});	
+			$('#txtCurrentHighBid').val(data.highestBid);
+			
+			InitializeCurrencyFields();
+			
+		});
+	}
+	
+	function InitializeEventHandlers(){
+		
+	}
+	
+	function GetAuction(auctionId){
+		return $.ajax({
+			type:'GET',
+			url:'/BuyMe/BiddingAjaxController?fn=GetAuction&auctionId=' + auctionId,
+			success: function(result){
+				return result;
+			}
+		});
 	}
 	
 	function InitializeCurrencyFields(){
-		$('.currency').on('change', function(e){
-			$(this).val(parseFloat($(this).val()).toFixed(2));
-		});	
+		$.each($('.currency'), function(i, field){
+			$(field).val(parseFloat($(field).val()).toFixed(2));
+		});
 	}
 	
 	Date.prototype.addDays = function(days) {
@@ -48,12 +52,24 @@
 	    return date;
 	}
 	
-	function CreateAuction(){
+	function GetParameterByName(name){
+        try{
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regexString = "[\\?&]" + name + "=([^&#]*)";
+            var regex = new RegExp(regexString);
+            var found = regex.exec(window.location.search);
+            if(found == null) { return ""; }
+            return decodeURIComponent(found[1].replace(/\+/g," "));
+        } catch (e) {
+            console.log(e);
+            return "";
+        }
+    }
+	
+	/*function CreateAuction(){
 		var startTime = new Date();
-		closeTime = startTime.addDays(parseInt($('#ddlAuctionLength').val()));
+		startTime = startTime.addDays(parseInt($('#ddlAuctionLength').val()));
 		startTime = kendo.toString(startTime, 'yyyy-MM-dd HH:mm:ss');
-		closeTime = kendo.toString(closeTime, 'yyyy-MM-dd HH:mm:ss');
-
 		var queryData = {
 			fn: 'auctionsAddNew',
 			title: $('#txtTitle').val(),
@@ -68,7 +84,6 @@
 			year: $('#txtYear').val(),
 			color: $('#txtColor').val(),
 			startTime: startTime,
-			closeTime: closeTime,
 			initialPrice: $('#txtInitialPrice').val(),
 			bidIncrement: $('#txtBidIncrement').val(),
 			minPrice: $('#txtMinPrice').val(),
@@ -80,9 +95,9 @@
 			url:'/BuyMe/CreateAuctionAjaxController',
 			data: queryData
 		});
-	}
+	}*/
 	
-	function validateForm(){
+	/*function validateForm(){
 		var validated = true;
 		var requiredFields = ['txtTitle','txtDescription','txtName','ddlCategory','ddlSubCategory','txtCompany','txtYear','txtColor','ddlAuctionLength','txtInitialPrice','txtBidIncrement','txtMinPrice'];
 		
@@ -108,6 +123,6 @@
 		}
 		
 		return validated;
-	}
-})();
+	}*/
+//})();
 

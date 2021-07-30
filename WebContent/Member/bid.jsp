@@ -22,39 +22,59 @@
 		<div class="col-xs-12 col-lg-9">
 		
 			<div class="row">
-			<div class="col-12"><h1>Create Auction</h1></div>
+			<div class="col-12"><h1>View Auction</h1></div>
 		</div>
 			<div class="row">
 				<div class="col-xs-12 col-lg-8">
 					<div class="form-group">
-					    <label for="txtTitle">Title*</label>
-					    <input id="txtTitle" name="Title" type="text" class="form-control" placeholder="Auction Title">
+					    <label for="txtTitle">Title</label>
+					    <input id="txtTitle" name="Title" type="text" class="form-control-plaintext" placeholder="Auction Title" readonly>
 				  	</div>
 			  	</div>
 			 </div>
 			 <div class="row">
 				<div class="col-xs-12 col-lg-8">
 					<div class="mb-3">
-					  <label for="txtDescription" class="form-label">Description*</label>
-					  <textarea id="txtDescription" name="Description" class="form-control" rows="3"></textarea>
+					  <label for="txtDescription" class="form-label">Description:</label>
+					  <textarea id="txtDescription" name="Description" class="form-control-plaintext" rows="3" readonly></textarea>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-lg-2">
 					<div class="form-group">
-					    <label for="txtName">Name*</label>
-					    <input id="txtName" name="Name" type="text" class="form-control" placeholder="Item name">
+					    <label for="txtStartTime">Started</label>
+					    <input id="txtStartTime" name="Name" type="text" class="form-control-plaintext" placeholder="Start Time" readonly>
 				  	</div>
 			  	</div>
 			  	<div class="col-xs-12 col-lg-2">
-				 	<label for="ddlCategory">Category*</label>
+					<div class="form-group">
+					    <label for="txtCloseTime">Ends</label>
+					    <input id="txtCloseTime" name="Name" type="text" class="form-control-plaintext" placeholder="End Time" readonly>
+				  	</div>
+			  	</div>
+			  	<div class="col-xs-12 col-lg-2">
+					<div class="form-group">
+					    <label for="txtCurrentHighBid">Current High Bid</label>
+					    <input id="txtCurrentHighBid" name="HighBid" type="number" class="form-control-plaintext currency" placeholder="Current High Bid" readonly>
+				  	</div>
+			  	</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-lg-2">
+					<div class="form-group">
+					    <label for="txtName">Name</label>
+					    <input id="txtName" name="Name" type="text" class="form-control-plaintext" placeholder="Item name" readonly>
+				  	</div>
+			  	</div>
+			  	<div class="col-xs-12 col-lg-2">
+				 	<label for="ddlCategory">Category</label>
 				  	<select id="ddlCategory" class="form-select">
 					  <option selected>Electronics</option>
 					</select>
 				 </div>
 				 <div class="col-xs-12 col-lg-2">
-				 	<label for="ddlSubCategory">Subcategory*</label>
+				 	<label for="ddlSubCategory">Subcategory</label>
 				  	<select id="ddlSubCategory" name="SubCategory" class="form-select">
 					  <option selected></option>
 					  <option value="cellphone">Cell Phone</option>
@@ -85,55 +105,27 @@
 			<div class="row">
 				<div class="col-xs-12 col-lg-2">
 					<div class="form-group">
-					    <label for="txtCompany">Manufacturer*</label>
+					    <label for="txtCompany">Manufacturer</label>
 					    <input id="txtCompany" name="Company" type="text" class="form-control" placeholder="Item Manufacturer">
 				  	</div>
 			  	</div>
 			  	<div class="col-xs-12 col-lg-2">
 					<div class="form-group">
-					    <label for="txtYear">Year*</label>
+					    <label for="txtYear">Year</label>
 					    <input id="txtYear" name="Year" type="number" class="form-control int" placeholder="Item Mfr Year">
 				  	</div>
 			  	</div>
 			  	<div class="col-xs-12 col-lg-2">
 					<div class="form-group">
-					    <label for="txtColor">Color*</label>
+					    <label for="txtColor">Color</label>
 					    <input id="txtColor" name="Color" type="text" class="form-control" placeholder="Item Color">
 				  	</div>
 			  	</div>
 			</div>
-			<div class="row">
-				<div class="col-xs-12 col-lg-2">
-					<label for="ddlAuctionLength">Auction Length (days)*</label>
-				  	<select id="ddlAuctionLength" name="AuctionLength" class="form-select">
-					  <option selected></option>
-					  <option value="3">3</option>
-					  <option value="5">5</option>
-					  <option value="7">7</option>
-					</select>
-				</div>	
-				<div class="col-xs-12 col-lg-2">
-					<div class="form-group">
-					    <label for="txtInitialPrice">Initial Price*</label>
-					    <input id="txtInitialPrice" name="InitialPrice" type="number" class="form-control currency" placeholder="Initial Price">
-				  	</div>
-			  	</div>
-			  	<div class="col-xs-12 col-lg-2">
-					<div class="form-group">
-					    <label for="txtBidIncrement">Bid Increment</label>
-					    <input id="txtBidIncrement" name="BidIncrement" type="number" class="form-control currency" placeholder="Bid Increment">
-				  	</div>
-			  	</div>
-		  		<div class="col-xs-12 col-lg-2">
-					<div class="form-group">
-					    <label for="txtMinPrice">Minimum Reserve Price</label>
-					    <input id="txtMinPrice" name="MinPrice" type="number" class="form-control currency" placeholder="Minimum Reserve Price">
-				  	</div>
-			  	</div>
-			</div>
+
 			<div class="row rowSubmitBtn">
 				<div class="col-xs-12 col-lg-3">
-					<button id="btnCreateAuction" class="btn btn-primary" type="submit">Start Auction</button>
+					<button id="btnSubmitBid" class="btn btn-primary" type="submit">Submit Bid</button>
 				</div>
 			</div>
 		</div>
@@ -150,7 +142,7 @@
  //cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/css/bootstrapvalidator.min.css 
  
  $.when(
-    $.getScript( "../js/createAuction.js?rev=" + Date.now() ),
+    $.getScript( "../js/bid.js?rev=" + Date.now() ),
     $.Deferred(function( deferred ){
         $( deferred.resolve );
     })

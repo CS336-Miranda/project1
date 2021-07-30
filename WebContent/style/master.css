@@ -118,6 +118,9 @@ div#divAuth {
 .rowSubmitBtn {
 	margin-top: 15px;
 }
+.form-control-plaintext {
+	color: white;
+}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
