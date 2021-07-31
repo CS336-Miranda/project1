@@ -1,4 +1,4 @@
-//(function () {
+(function () {
 	var formValidationOccurred = false;
 	//var bidIncrement = 0;
 	//var minBidAmount = 0;
@@ -177,5 +177,5 @@
 		
 		return validated;
 	}
-//})();
+})();
 
