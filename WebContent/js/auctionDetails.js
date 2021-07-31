@@ -7,6 +7,7 @@
 		var auctionId = GetParameterByName('auctionId');
 		$.when(GetAuction(auctionId)).done(function(auctionData){
 			auctionData = JSON.parse(auctionData).d[0];
+			console.log(auctionData);
 			PopulateAuctionDetails(auctionData);
 			EstablishMinimumBidAmount(auctionData);
 			InitializeCurrencyFields();
@@ -35,7 +36,7 @@
 		}else{
 			$('#lblCurrentHighBid').hide();
 			$('#txtCurrentHighBid').val(data.highestBid);
-			$('#txtCurrentHighBidder').val(data.highestBidder);
+			$('#txtCurrentHighBidder').val(data.email);
 		}
 		
 		var closeTime = kendo.parseDate(data.closeTime);
@@ -129,17 +130,22 @@
     }
 	
 	function SubmitBid(){
+		var previousHighBid = $('#txtCurrentHighBid').val().length === 0 ? 0 : $('#txtCurrentHighBid').val();
+		var upperLimit = $('#txtBidAmount').val().length === 0 ? $('#txtBidAmount').attr('placeholder') : $('#txtBidAmount').val();
+		var bidIncrement = $('#txtBidIncrement').val().length === 0 ? 1 : $('#txtBidIncrement').val();
+		//var bidAmount = parseFloat(previousHighBid) + parseFloat(bidIncrement);
+		
 		var queryData = {
 			fn: 'bidAddNew',
 			bidder: $('#lblnavBarUserName').text(),
 			auctionId: GetParameterByName('auctionId'),
 			higherBidAlert: !$('#chkHighBidAlert').is(':checked') ? 0 : 1,
-			upperLimit: $('#txtBidAmount').val().length === 0 ? $('#txtBidAmount').attr('placeholder') : $('#txtBidAmount').val(),
-			bidIncrement: $('#txtBidIncrement').val().length === 0 ? $('#txtBidIncrement').attr('placeholder') : $('#txtBidIncrement').val(),
+			upperLimit: upperLimit,
+			bidIncrement: bidIncrement,
+			//bidAmount: bidAmount,
 			timestamp: kendo.toString(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-			previousHighBid: $('#txtCurrentHighBid').val().length === 0 ? 0 : $('#txtCurrentHighBid').val()
+			previousHighBid: previousHighBid
 		}
-		
 		return $.ajax({
 			type:'POST',
 			url:'/BuyMe/BiddingAjaxController',
