@@ -29,16 +29,9 @@
 			<div class="col-xs-12 col-lg-9">
 			
 				<div class="row">
-				<div class="col-12"><h1>Auction Details</h1></div>
-			</div>
-				<div class="row">
-					<div class="col-xs-12 col-lg-9">
-						<div class="form-group">
-						    <label for="txtTitle">Title</label>
-						    <input id="txtTitle" name="Title" type="text" class="form-control-plaintext" placeholder="Auction Title" readonly>
-					  	</div>
-				  	</div>
-				 </div>
+					<div class="col-12"><h1><label id="lblTitle"></label></h1></div>
+				</div>
+
 				 <div class="row">
 					<div class="col-xs-12 col-lg-9">
 						<div class="mb-3">
@@ -50,34 +43,46 @@
 				<div class="row">
 					<div class="col-xs-12 col-lg-3">
 						<div class="form-group">
-						    <label for="txtName">Name</label>
+						    <label for="txtCloseTime">Ends on:</label>
+						    <input id="txtCloseTime" name="Name" type="text" class="form-control-plaintext" placeholder="End Time" readonly>
+					  	</div>
+				  	</div>
+				  	<div class="col-xs-12 col-lg-3">
+						<div class="form-group">
+							<label for="divCountdownTimer">Time Remaining:</label>
+							<div id="divCountdownTimer"></div>
+					  	</div>
+			  		</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-lg-9">
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-lg-3">
+						<div class="form-group">
+						    <label for="txtName">Name:</label>
 						    <input id="txtName" name="Name" type="text" class="form-control-plaintext" placeholder="Item name" readonly>
 					  	</div>
 				  	</div>
 				  	<div class="col-xs-12 col-lg-3">
-					 	<label for="txtCategory">Category</label>
+					 	<label for="txtCategory">Category:</label>
 					    <input id="txtCategory" name="Category" type="text" class="form-control-plaintext" placeholder="Category" readonly>
 					 </div>
 					 <div class="col-xs-12 col-lg-3">
-					 	<label for="txtSubCategory">Subcategory</label>
+					 	<label for="txtSubCategory">Subcategory:</label>
 					 	<input id="txtSubCategory" name="SubCategory" type="text" class="form-control-plaintext" placeholder="SubCategory" readonly>
 					 </div>
-	 				<div class="col-xs-12 col-lg-3 subCategoryAttributes laptop" style="display: none;">
-						<label for="ddlLaptopTouchScreen">Touchscreen?</label>
-					  	<select id="ddlLaptopTouchScreen" name="LaptopTouchScreen" class="form-select subCatAttr boolean">
-						  <option value="0" selected>No</option>
-						  <option value="1">Yes</option>
-						</select>
-				  	</div>
 					<div class="col-xs-12 col-lg-3 subCategoryAttributes cellphone" style="display: none;">
 						<div class="form-group">
-						    <label for="txtCellphoneProvider">Provider</label>
+						    <label for="txtCellphoneProvider">Provider:</label>
 						    <input id="txtCellphoneProvider" name="CellphoneProvider" type="text" class="form-control subCatAttr" placeholder="">
 					  	</div>
 				  	</div>
 					<div class="col-xs-12 col-lg-3 subCategoryAttributes tv" style="display: none;">
 						<div class="form-group">
-						    <label for="txtTVSize">Size (inches)</label>
+						    <label for="txtTVSize">Size (inches):</label>
 						    <input id="txtTVSize" name="TVSize" type="number" class="form-control int subCatAttr">
 					  	</div>
 				  	</div>
@@ -85,56 +90,77 @@
 				<div class="row">
 					<div class="col-xs-12 col-lg-3">
 						<div class="form-group">
-						    <label for="txtCompany">Manufacturer</label>
+						    <label for="txtCompany">Manufacturer:</label>
 						    <input id="txtCompany" name="Company" type="text" class="form-control-plaintext" placeholder="Item Manufacturer" readonly>
 					  	</div>
 				  	</div>
 				  	<div class="col-xs-12 col-lg-3">
 						<div class="form-group">
-						    <label for="txtYear">Year</label>
+						    <label for="txtYear">Year:</label>
 						    <input id="txtYear" name="Year" type="number" class="form-control-plaintext int" placeholder="Item Mfr Year" readonly>
 					  	</div>
 				  	</div>
 				  	<div class="col-xs-12 col-lg-3">
 						<div class="form-group">
-						    <label for="txtColor">Color</label>
+						    <label for="txtColor">Color:</label>
 						    <input id="txtColor" name="Color" type="text" class="form-control-plaintext" placeholder="Item Color" readonly>
 					  	</div>
 				  	</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-12 col-lg-3">
+					<div class="col-xs-12 col-lg-9">
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-lg-3" style="display:none;">
 						<div class="form-group">
-						    <label for="txtStartTime">Started</label>
+						    <label for="txtStartTime">Started:</label>
 						    <input id="txtStartTime" name="Name" type="text" class="form-control-plaintext" placeholder="Start Time" readonly>
 					  	</div>
 				  	</div>
-				  	<div class="col-xs-12 col-lg-3">
-						<div class="form-group">
-						    <label for="txtCloseTime">Ends</label>
-						    <input id="txtCloseTime" name="Name" type="text" class="form-control-plaintext" placeholder="End Time" readonly>
+				  	<div class="row">
+						<div class="col-xs-12 col-lg-3">
+							<div class="form-group">
+							    <label for="txtCurrentHighBid">Current High Bid:</label>
+							    <label id="lblCurrentHighBid" class="form-control-plaintext"></label>
+							    <input id="txtCurrentHighBid" name="HighBid" type="number" class="form-control-plaintext currency" placeholder="" readonly>
+						  	</div>
 					  	</div>
-				  	</div>
-				  	<div class="col-xs-12 col-lg-3">
-						<div class="form-group">
-							<label for="divCountdownTimer">Time Remaining</label>
-							<div id="divCountdownTimer"></div>
+					  	<div class="col-xs-12 col-lg-3">
+							<div class="form-group">
+							    <label for="txtCurrentHighBidder">High Bidder:</label>
+							    <input id="txtCurrentHighBidder" name="HighBidder" type="text" class="form-control-plaintext" placeholder="" readonly>
+						  	</div>
 					  	</div>
-				  	</div>
+					</div>
+				  	
 				</div>
-				<div class="row">
-				<div class="col-xs-12 col-lg-3">
-						<div class="form-group">
-						    <label for="txtCurrentHighBid">Current High Bid</label>
-						    <input id="txtCurrentHighBid" name="HighBid" type="number" class="form-control-plaintext currency" placeholder="Current High Bid" readonly>
-					  	</div>
-				  	</div>
-				</div>
-				
-	
 				<div class="row rowSubmitBtn">
-					<div class="col-xs-12 col-lg-3">
-						<button id="btnSubmitBid" class="btn btn-primary" type="submit">Submit Bid</button>
+					<div class="col-xs-12 col-lg-2">
+						<div class="form-group">
+						    <label for="txtBidAmount">Bid Amount (USD)*:</label>
+						    <input id="txtBidAmount" name="BidAmount" type="number" class="form-control currency">
+					  	</div>
+				  	</div>
+				  	<div class="col-xs-12 col-lg-2">
+						<div class="form-group">
+						    <label for="txtBidIncrement">Auto-Bid Increment (USD):</label>
+						    <input id="txtBidIncrement" name="BidIncrement" type="number" class="form-control currency" placeholder="1.00">
+					  	</div>
+				  	</div>
+				  	<div class="col-xs-12 col-lg-2">
+				  	<br/>
+				  	<div class="form-check">
+					  <input class="form-check-input" type="checkbox" value="" id="chkHighBidAlert">
+					  <label class="form-check-label" for="chkHighBidAlert">
+					    Notify me if someone submits a higher bid
+					  </label>
+					</div>
+				  	</div>
+					<div class="col-xs-12 col-lg-2">
+						<label for="btnSubmitBid"> </label>
+						<br/><button id="btnSubmitBid" class="btn btn-primary" type="submit">Place Bid</button>
 					</div>
 				</div>
 			</div>

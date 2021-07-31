@@ -1,11 +1,14 @@
 //(function () {
 	var formValidationOccurred = false;
-
+	//var bidIncrement = 0;
+	//var minBidAmount = 0;
+	
 	$(document).ready(function(){
 		var auctionId = GetParameterByName('auctionId');
 		$.when(GetAuction(auctionId)).done(function(auctionData){
 			auctionData = JSON.parse(auctionData).d[0];
-			PopulateAuctionDetails(auctionData)
+			PopulateAuctionDetails(auctionData);
+			EstablishMinimumBidAmount(auctionData);
 			InitializeCurrencyFields();
 			DisableSelectFields();
 			InitializeEventHandlers();	
@@ -13,17 +16,27 @@
 		});
 	});
 	
+	function EstablishMinimumBidAmount(data){
+		var bidIncrement = 1;//parseFloat(data.bidIncrement);
+		//minBidAmount = data.highestBid ? parseFloat(data.highestBid) +  parseFloat(data.bidIncrement) : parseFloat(data.bidIncrement);
+		var minBidAmount = data.highestBid ? parseFloat(data.highestBid) +  parseFloat(bidIncrement) : parseFloat(bidIncrement);
+		$('#txtBidAmount').attr('placeholder', minBidAmount.toFixed(2));
+	}
+	
 	function PopulateAuctionDetails(data){
-		$('#txtTitle').val(data.title);
+		$('#lblTitle').text(data.title);
 		$('#txtDescription').text(data.description);
 		$('#txtStartTime').val(kendo.toString(kendo.parseDate(data.startTime), "ddd MMM dd, yyyy h:mm tt" ));
 		$('#txtCloseTime').val(kendo.toString(kendo.parseDate(data.closeTime), "ddd MMM dd, yyyy h:mm tt" ));
+
 		if(!data.highestBid){
-			$('#txtCurrentHighBid').val('No bids yet... Get things started!');
+			$('#lblCurrentHighBid').text('No bids');
+			$('#txtCurrentHighBid').hide();
 		}else{
+			$('#lblCurrentHighBid').hide();
 			$('#txtCurrentHighBid').val(data.highestBid);
+			$('#txtCurrentHighBidder').val(data.highestBidder);
 		}
-		$('#txtCurrentHighBid').val(data.highestBid);
 		
 		var closeTime = kendo.parseDate(data.closeTime);
 		InitializeCountdownTimer(closeTime);
@@ -48,7 +61,25 @@
 	}
 	
 	function InitializeEventHandlers(){
+		$('.currency').on('change', function(e){
+			$(this).val(parseFloat($(this).val()).toFixed(2));
+		});
 		
+		$('#btnSubmitBid').on('click', function(e){
+			e.preventDefault();
+			if(validateForm()){
+				$.when(SubmitBid()).done(function(result){
+					alert('Your bid has been submitted');
+					window.location.href = window.location.href;
+					/*$.when(GetHighBid()).done(function(highBid){
+						highBid = JSON.parse(highBid).d[0];
+						SetNewHighBid(highBid);
+						alert('Your bid has been submitted');
+						//window.location.href = window.location.href;
+					});*/
+				});
+			}			
+		});
 	}
 	
 	function GetAuction(auctionId){
@@ -60,6 +91,16 @@
 			}
 		});
 	}
+	
+	/*function GetHighBid(){
+		return $.ajax({
+			type:'GET',
+			url:'/BuyMe/BiddingAjaxController?fn=GetHighBid&auctionId=' + GetParameterByName('auctionId'),
+			success: function(result){
+				return result;
+			}
+		});
+	}*/
 	
 	function InitializeCurrencyFields(){
 		$.each($('.currency'), function(i, field){
@@ -87,44 +128,29 @@
         }
     }
 	
-	/*function CreateAuction(){
-		var startTime = new Date();
-		startTime = startTime.addDays(parseInt($('#ddlAuctionLength').val()));
-		startTime = kendo.toString(startTime, 'yyyy-MM-dd HH:mm:ss');
+	function SubmitBid(){
 		var queryData = {
-			fn: 'auctionsAddNew',
-			title: $('#txtTitle').val(),
-			description: $('#txtDescription').val(),
-			name: $('#txtName').val(),
-			category: $('#ddlCategory').val(),
-			subcategory: $('#ddlSubCategory').val(),
-			laptopTouchscreen: $('#ddlLaptopTouchScreen').val(),
-			cellphoneProvider: $('#txtCellphoneProvider').val(),
-			tvSize: $('#txtTVSize').val(),
-			company: $('#txtCompany').val(),
-			year: $('#txtYear').val(),
-			color: $('#txtColor').val(),
-			startTime: startTime,
-			initialPrice: $('#txtInitialPrice').val(),
-			bidIncrement: $('#txtBidIncrement').val(),
-			minPrice: $('#txtMinPrice').val(),
-			owner: $('#lblnavBarUserName').text()
+			fn: 'bidAddNew',
+			bidder: $('#lblnavBarUserName').text(),
+			auctionId: GetParameterByName('auctionId'),
+			higherBidAlert: !$('#chkHighBidAlert').is(':checked') ? 0 : 1,
+			upperLimit: $('#txtBidAmount').val().length === 0 ? $('#txtBidAmount').attr('placeholder') : $('#txtBidAmount').val(),
+			bidIncrement: $('#txtBidIncrement').val().length === 0 ? $('#txtBidIncrement').attr('placeholder') : $('#txtBidIncrement').val(),
+			timestamp: kendo.toString(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+			previousHighBid: $('#txtCurrentHighBid').val().length === 0 ? 0 : $('#txtCurrentHighBid').val()
 		}
 		
 		return $.ajax({
 			type:'POST',
-			url:'/BuyMe/CreateAuctionAjaxController',
+			url:'/BuyMe/BiddingAjaxController',
 			data: queryData
 		});
-	}*/
+	}
 	
-	/*function validateForm(){
+	function validateForm(){
 		var validated = true;
-		var requiredFields = ['txtTitle','txtDescription','txtName','ddlCategory','ddlSubCategory','txtCompany','txtYear','txtColor','ddlAuctionLength','txtInitialPrice','txtBidIncrement','txtMinPrice'];
-		
-		if($('#ddlSubCategory').val() === 'laptop'){ requiredFields.push('ddlLaptopTouchScreen'); }
-		else if($('#ddlSubCategory').val() === 'cellphone'){ requiredFields.push('txtCellphoneProvider'); }
-		else if($('#ddlSubCategory').val() === 'tv'){ requiredFields.push('txtTVSize'); }
+		//var requiredFields = ['txtBidAmount','txtBidIncrement'];
+		requiredFields = [];
 		
 		$.each(requiredFields, function(i, fieldName){
 			var field = $('#' + fieldName);
@@ -144,6 +170,6 @@
 		}
 		
 		return validated;
-	}*/
+	}
 //})();
 
