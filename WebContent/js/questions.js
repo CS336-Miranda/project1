@@ -99,7 +99,3 @@ function InitializeQuestionsGrid(gridData){
     });
 }
 
-function ConvertUTCToLocalTime(askTime){
-	var date = new Date(askTime + ' UTC');
-	return kendo.toString(date, "g");
-}

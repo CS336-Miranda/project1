@@ -31,3 +31,8 @@ function validateLoginRegisterForm(){
   		$('#btnSignIn').attr('disabled', true);
   	}
 }
+
+function ConvertUTCToLocalTime(datetime){
+	var date = new Date(datetime + ' UTC');
+	return kendo.toString(date, "g");
+}

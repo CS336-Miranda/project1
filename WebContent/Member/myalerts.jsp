@@ -3,12 +3,29 @@
 <%@include file="../MasterPages/member.html"%>
 <%@include file="../MasterPages/navBar.html"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 </head>
 <body>
-<h1>My Alerts</h1>
+<div class="content">
+	<div class="row">
+		<div class="col-10">
+			<h1>MyAlerts</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-10">
+			<div id="grdAlerts"></div>
+		</div>
+	</div>
+</div>
+
+   <script>   
+   $.getScript("../js/myalerts.js?rev=" + Date.now(), function( data, textStatus, jqxhr ) {
+	 });
+   </script>
 </body>
 </html>

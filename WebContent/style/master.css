@@ -122,6 +122,9 @@ div#divAuth {
 	color: white;
 	font-size: 134%;
 }
+.boldGridRow {
+	font-weight: bold;
+}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
