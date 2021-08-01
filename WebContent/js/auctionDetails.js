@@ -136,7 +136,8 @@
 		});
 		
 		$('#btnViewBidHistory').on('click', function(e){
-			window.location.href = '/BuyMe/Member/viewbidhistory.jsp?auctionId=' + GetParameterByName('auctionId');
+			e.preventDefault();
+			window.location.href = '/BuyMe/Member/bidhistory.jsp?auctionId=' + GetParameterByName('auctionId');
 		});
 	}
 	
