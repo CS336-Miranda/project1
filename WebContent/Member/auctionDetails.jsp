@@ -136,6 +136,10 @@
 							    <input id="txtCurrentHighBidder" name="HighBidder" type="text" class="form-control-plaintext" placeholder="" readonly>
 						  	</div>
 					  	</div>
+					  	<div class="col-xs-12 col-lg-2">
+						    <label for="btnViewBidHistory"> </label>
+							<br/><button id="btnViewBidHistory" class="btn btn-primary" type="submit">Bid History</button>
+					  	</div>
 					</div>
 				  	
 				</div>

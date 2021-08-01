@@ -146,6 +146,10 @@ input[type=number] {
 	button {
 	    width: 100%;
 	  }
+  .navbar-toggler {
+    width: 55px !important;
+    margin-right: 10px !important;
+	}
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -167,6 +171,9 @@ input[type=number] {
 	button {
 	    width: unset;
 	  }
+	#btnViewBidHistory{
+		margin-left: 10px;
+	}
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
