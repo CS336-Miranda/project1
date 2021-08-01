@@ -13,7 +13,7 @@
 <div class="content">
 	<div class="row">
 		<div class="col-10">
-			<h1>MyAlerts</h1>
+			<h1>My Alerts</h1>
 		</div>
 	</div>
 	<div class="row">
