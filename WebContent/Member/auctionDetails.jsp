@@ -163,6 +163,33 @@
 						<br/><button id="btnSubmitBid" class="btn btn-primary" type="submit">Place Bid</button>
 					</div>
 				</div>
+				<div class="row rowUpdateLimitBtn" style="display:none;">
+					<div class="col-xs-12 col-lg-2">
+						<div class="form-group">
+						    <label for="txtUpdateBidLimit">Update Bid Limit*:</label>
+						    <input id="txtUpdateBidLimit" name="UpdateBidLimitAmount" type="number" class="form-control currency">
+					  	</div>
+				  	</div>
+				  	<div class="col-xs-12 col-lg-2">
+						<div class="form-group">
+						    <label for="txtUpdateBidIncrement">Auto-Bid Increment (USD):</label>
+						    <input id="txtUpdateBidIncrement" name="UpdateBidIncrement" type="number" class="form-control currency" placeholder="1.00">
+					  	</div>
+				  	</div>
+				  	<div class="col-xs-12 col-lg-2">
+				  	<br/>
+				  	<div class="form-check">
+					  <input class="form-check-input" type="checkbox" value="" id="chkUpdateHighBidAlert">
+					  <label class="form-check-label" for="chkUpdateHighBidAlert">
+					    Notify me if someone submits a higher bid
+					  </label>
+					</div>
+				  	</div>
+					<div class="col-xs-12 col-lg-2">
+						<label for="btnUpdateBid"> </label>
+						<br/><button id="btnUpdateBid" class="btn btn-primary" type="submit">Update Bid</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

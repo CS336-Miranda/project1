@@ -1,5 +1,6 @@
 (function () {
 	var formValidationOccurred = false;
+	var bidId = 0;
 	
 	$(document).ready(function(){
 		var auctionId = GetParameterByName('auctionId');
@@ -9,16 +10,38 @@
 			EstablishMinimumBidAmount(auctionData);
 			InitializeCurrencyFields();
 			DisableSelectFields();
-			InitializeEventHandlers();	
+			OnlyAllowUpdateLimitIfUserIsHighBidder(auctionData);
+			InitializeEventHandlers();
 			$('.auctionDetails').fadeIn();
 		});
 	});
 	
+	function OnlyAllowUpdateLimitIfUserIsHighBidder(auctionData){
+		if($('#txtCurrentHighBidder').val() !== $('#lblnavBarUserName').text()){ 
+			$('.rowUpdateLimitBtn').remove(); 
+			return true; 
+		}else if($('#txtCurrentHighBidder').val() === $('#lblnavBarUserName').text()){ 
+			//Erwin: I know this else if is redundant after the return above but I prefer to double check the condition here
+			bidId = auctionData.bidId;
+			$('.rowSubmitBtn').hide();
+			$('#txtUpdateBidLimit').val(auctionData.upperLimit);
+			$('#txtUpdateBidLimit').attr('placeholder',auctionData.upperLimit);
+			$("txtUpdateBidLimit").attr({"min" : auctionData.upperLimit });
+			$('#txtUpdateBidIncrement').val(auctionData.highBidderBidIncrement);
+			$('#txtUpdateBidIncrement').attr('placeholder',auctionData.highBidderBidIncrement);
+			$("txtUpdateBidIncrement").attr({"min" : 0 });
+			$('#chkUpdateHighBidAlert').prop('checked',auctionData.higherBidAlert);
+			$('.rowUpdateLimitBtn').show();
+		}
+	}
+	
 	function EstablishMinimumBidAmount(data){
-		var bidIncrement = 1;//parseFloat(data.bidIncrement);
-		//minBidAmount = data.highestBid ? parseFloat(data.highestBid) +  parseFloat(data.bidIncrement) : parseFloat(data.bidIncrement);
+		var bidIncrement = 1;
+		$("#txtBidIncrement").attr({"min" : bidIncrement });
+		
 		var minBidAmount = data.highestBid ? parseFloat(data.highestBid) +  parseFloat(bidIncrement) : parseFloat(bidIncrement);
 		$('#txtBidAmount').attr('placeholder', minBidAmount.toFixed(2));
+		$("#txtBidAmount").attr({"min" : minBidAmount });
 	}
 	
 	function PopulateAuctionDetails(data){
@@ -33,7 +56,7 @@
 		}else{
 			$('#lblCurrentHighBid').hide();
 			$('#txtCurrentHighBid').val(data.highestBid);
-			$('#txtCurrentHighBidder').val(data.email);
+			$('#txtCurrentHighBidder').val(data.highBidder);
 		}
 		
 		var closeTime = kendo.parseDate(data.closeTime);
@@ -65,12 +88,22 @@
 		
 		$('#btnSubmitBid').on('click', function(e){
 			e.preventDefault();
-			if(validateForm()){
+			if(validateForm('bid')){
 				$.when(SubmitBid()).done(function(result){
 					alert('Your bid has been submitted');
 					window.location.href = window.location.href;
 				});
 			}			
+		});
+		
+		$('#btnUpdateBid').on('click',function(e){
+			e.preventDefault();
+			if(validateForm('update')){
+				$.when(UpdateBid()).done(function(result){
+					alert('Your bid has been updated');
+					window.location.href = window.location.href;
+				});
+			}	
 		});
 	}
 	
@@ -122,7 +155,6 @@
 			higherBidAlert: !$('#chkHighBidAlert').is(':checked') ? 0 : 1,
 			upperLimit: upperLimit,
 			bidIncrement: bidIncrement,
-			//bidAmount: bidAmount,
 			timestamp: kendo.toString(new Date(), 'yyyy-MM-dd HH:mm:ss'),
 			previousHighBid: previousHighBid
 		}
@@ -133,7 +165,26 @@
 		});
 	}
 	
-	function validateForm(){
+	function UpdateBid(){
+		var upperLimit = $('#txtUpdateBidLimit').val().length === 0 ? $('#txtUpdateBidLimit').attr('placeholder') : $('#txtUpdateBidLimit').val();
+		var bidIncrement = $('#txtUpdateBidIncrement').val().length === 0 ? 1 : $('#txtUpdateBidIncrement').val();
+		
+		var queryData = {
+			fn: 'bidUpdate',
+			bidder: $('#lblnavBarUserName').text(),
+			higherBidAlert: !$('#chkUpdateHighBidAlert').is(':checked') ? 0 : 1,
+			upperLimit: upperLimit,
+			bidIncrement: bidIncrement,
+			bidId: bidId
+		}
+		return $.ajax({
+			type:'POST',
+			url:'/BuyMe/BiddingAjaxController',
+			data: queryData
+		});
+	}
+	
+	function validateForm(submitType){
 		var validated = true;
 		//var requiredFields = ['txtBidAmount','txtBidIncrement'];
 		requiredFields = [];
