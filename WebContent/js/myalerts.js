@@ -1,4 +1,4 @@
-(function () {
+
 	$(document).ready(function(){
 		try{
 			InitializeEventHandlers();
@@ -137,4 +137,4 @@ function _markAsRead(alertId){
 	});
 }
 
-})();
+
