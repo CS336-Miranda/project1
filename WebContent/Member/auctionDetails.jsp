@@ -125,7 +125,8 @@
 				  	<div class="row">
 						<div class="col-xs-12 col-md-6 col-lg-3">
 							<div class="form-group">
-							    <label id="lblCurrentHighBid" for="txtCurrentHighBid">Current High Bid:</label>
+							    <label id="lblCurrentHighBid2" for="txtCurrentHighBid">Current High Bid:</label>
+							    <label id="lblCurrentHighBid" class="form-control-plaintext" style="display: none;"></label>
 							    <input id="txtCurrentHighBid" name="HighBid" type="number" class="form-control-plaintext currency" placeholder="" readonly>
 						  	</div>
 					  	</div>

@@ -2,11 +2,12 @@
 	var formValidationOccurred = false;
 	var bidId = 0;
 	var winnerAlerted = 0;
+	var minPrice = 0;
 	
 	$(document).ready(function(){
 		var auctionId = GetParameterByName('auctionId');
 		$.when(GetAuction(auctionId)).done(function(auctionData){
-			auctionData = JSON.parse(auctionData).d[0];
+			auctionData = JSON.parse(auctionData).d[0];			
 			PopulateAuctionDetails(auctionData);
 			EstablishMinimumBidAmount(auctionData);
 			InitializeCurrencyFields();
@@ -74,6 +75,7 @@
 		$('#txtColor').val(data.color);
 		
 		winnerAlerted = data.winnerAlerted;
+		minPrice = data.minPrice;
 	}
 	
 	function InitializeCountdownTimer(closeTime){
@@ -89,11 +91,18 @@
 	function AuctionEnded(){
 		$('.rowSubmitBtn').remove();
 		$('.rowUpdateLimitBtn').remove();	
-		$('#lblCurrentHighBid').text('Winning Bid:');
+		$('#lblCurrentHighBid2').text('Winning Bid:');
 		$('#lblCurrentHighBidder').val('Winner:');
 		
-		if(!winnerAlerted){
-			AlertWinner();
+		if(parseFloat($('txtCurrentHighBid').val()) < minPrice){
+			$('#lblCurrentHighBid').text('Reserve not met');
+			$('#lblCurrentHighBid').show();
+			$('#txtCurrentHighBid').hide();
+			$('#txtCurrentHighBidder').val('No Winner');
+		}else{
+			if(!winnerAlerted){
+				AlertWinner();
+			}	
 		}
 	}
 	
