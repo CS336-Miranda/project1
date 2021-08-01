@@ -1,6 +1,7 @@
 (function () {
 	var formValidationOccurred = false;
 	var bidId = 0;
+	var winnerAlerted = 0;
 	
 	$(document).ready(function(){
 		var auctionId = GetParameterByName('auctionId');
@@ -54,7 +55,7 @@
 			$('#lblCurrentHighBid').text('No bids');
 			$('#txtCurrentHighBid').hide();
 		}else{
-			$('#lblCurrentHighBid').hide();
+			//$('#lblCurrentHighBid').hide();
 			$('#txtCurrentHighBid').val(data.highestBid);
 			$('#txtCurrentHighBidder').val(data.highBidder);
 		}
@@ -71,10 +72,29 @@
 		
 		$('#txtYear').val(data.year);
 		$('#txtColor').val(data.color);
+		
+		winnerAlerted = data.winnerAlerted;
 	}
 	
 	function InitializeCountdownTimer(closeTime){
-		$('#divCountdownTimer').countdown({until: closeTime, padZeroes: true});
+		$('#divCountdownTimer').countdown({
+			until: closeTime, 
+			padZeroes: true,
+			expiryText: 'Auction has ended!',
+			onExpiry: AuctionEnded
+		});
+		
+	}
+	
+	function AuctionEnded(){
+		$('.rowSubmitBtn').remove();
+		$('.rowUpdateLimitBtn').remove();	
+		$('#lblCurrentHighBid').text('Winning Bid:');
+		$('#lblCurrentHighBidder').val('Winner:');
+		
+		if(!winnerAlerted){
+			AlertWinner();
+		}
 	}
 	
 	function DisableSelectFields(){
@@ -142,6 +162,20 @@
             return "";
         }
     }
+	
+	function AlertWinner(){		
+		var queryData = {
+			fn: 'bidAlertWinner',
+			winner: $('#lblnavBarUserName').text(),
+			auctionId: GetParameterByName('auctionId'),
+			timestamp: kendo.toString(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+		}
+		return $.ajax({
+			type:'POST',
+			url:'/BuyMe/BiddingAjaxController',
+			data: queryData
+		});
+	}
 	
 	function SubmitBid(){
 		var previousHighBid = $('#txtCurrentHighBid').val().length === 0 ? 0 : $('#txtCurrentHighBid').val();

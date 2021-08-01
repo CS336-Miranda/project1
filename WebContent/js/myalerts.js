@@ -45,7 +45,8 @@ function InitializeGrid(gridData){
                         auctionId: { type: "number" },
 						title: { type: "string" },
                         date: { type: "date" },
-						markasread: { type: "bool" }
+						markasread: { type: "bool" },
+						alertMessage: { type: "string" }
                     }
                 }
             },
@@ -59,8 +60,8 @@ function InitializeGrid(gridData){
         columns: [{
                 field: "date",
                 title: "Alert Date",
-                format: "{0:MM/dd/yyyy H:mm tt}",
-				template: "#: ConvertUTCToLocalTime(date) #",
+                format: "{0:MM/dd/yyyy hh:mm tt}",
+				//template: "#: ConvertUTCToLocalTime(date) #",
 				width: 250
             },
             {
@@ -68,9 +69,9 @@ function InitializeGrid(gridData){
                 title: "Auction"
             },
             {
-                field: "alertId",
+                field: "alertMessage",
                 title: "Message",
-				template: "#: generateAlertMessage() #"
+				//template: "#: generateAlertMessage() #"
             },
 			{
                 field: "markasread",
@@ -101,9 +102,9 @@ function InitializeGrid(gridData){
     });
 }
 
-function generateAlertMessage(){
+/*function generateAlertMessage(){
 	return "You have been outbid on this item. Don't let it get away! Bid again today!";
-}
+}*/
 
 function showDetails(e){
 	var dataItem = this.dataItem($(e.currentTarget).closest("tr"));

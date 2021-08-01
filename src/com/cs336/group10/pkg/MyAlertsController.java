@@ -52,7 +52,7 @@ public class MyAlertsController extends HttpServlet {
 			ApplicationDB db = new ApplicationDB();	
 		 	Connection con = db.getConnection();
 			
-		 	String sqlQuery = "SELECT al.alertId, al.auctionId, a.title, al.date, al.markasread FROM alerts al LEFT OUTER JOIN auctions a on al.auctionId = a.auctionId WHERE al.email=? ORDER BY date DESC;";
+		 	String sqlQuery = "SELECT al.alertId, al.auctionId, a.title, al.date, al.markasread, al.alertMessage FROM alerts al LEFT OUTER JOIN auctions a on al.auctionId = a.auctionId WHERE al.email=? ORDER BY date DESC;";
 			PreparedStatement ps = con.prepareStatement(sqlQuery);
 			
 			 //Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself

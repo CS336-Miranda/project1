@@ -116,7 +116,10 @@ div#divAuth {
 	margin-top: 5px;
 }
 .rowSubmitBtn {
-	margin-top: 15px;
+	margin-top: 25px;
+}
+form {
+    margin-top: 25px;
 }
 .form-control-plaintext {
 	color: white;
@@ -136,4 +139,37 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+	button {
+	    width: 100%;
+	  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+	button {
+	    width: 100%;
+	  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+	button {
+	    width: 100%;
+	  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+	button {
+	    width: unset;
+	  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
 }

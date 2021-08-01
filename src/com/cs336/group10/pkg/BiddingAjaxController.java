@@ -52,7 +52,7 @@ public class BiddingAjaxController extends HttpServlet {
 			
 		 	int auctionId = Integer.parseInt(request.getParameter("auctionId"));
 		 	
-		 	String sqlQuery = "SELECT a.auctionId, b.bidId, b.highestBid, b.highBidder, b.upperLimit, b.higherBidAlert, b.highBidderBidIncrement, a.minPrice, a.closeTime, a.startTime, a.title, a.description, a.bidIncrement, a.initialPrice, a.owner, bs.itemId, e.name, e.company, e.year, e.color, l.touch, c.provider, t.size " + 
+		 	String sqlQuery = "SELECT a.auctionId, b.bidId, b.highestBid, b.highBidder, b.upperLimit, b.higherBidAlert, b.highBidderBidIncrement, a.minPrice, a.closeTime, a.startTime, a.title, a.description, a.bidIncrement, a.initialPrice, a.owner, bs.itemId, e.name, e.company, e.year, e.color, l.touch, c.provider, t.size, a.winnerAlerted " + 
 		 			"FROM _cs336_buyme.auctions a " +
 		 			"JOIN _cs336_buyme.beingSold bs on a.auctionId = bs.auctionId " + 
 		 			"JOIN _cs336_buyme.electronics e on e.itemId = bs.itemId " + 
@@ -93,6 +93,9 @@ public class BiddingAjaxController extends HttpServlet {
 		    break;
 		  case "bidUpdate":
 			  _updateBid(request, response);
+			  break;
+		  case "bidAlertWinner":
+			  _bidAlertWinner(request, response);
 			  break;
 		  default:
 		    // code block
@@ -180,6 +183,46 @@ public class BiddingAjaxController extends HttpServlet {
 			
 			PrintWriter out = response.getWriter();
 	        out.print(result);
+	        db.closeConnection(con);
+				
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void _bidAlertWinner(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();
+
+			String auctionId = request.getParameter("auctionId");
+			String winner = request.getParameter("email");
+			String timestamp = request.getParameter("timestamp");
+
+			response.setContentType("text/json");
+	        response.setCharacterEncoding("UTF-8");
+	        
+			String insertAlert = "INSERT INTO alerts (auctionId, email, date, alertMessage) VALUES (?, ?, ?,?);";
+			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
+			PreparedStatement ps = con.prepareStatement(insertAlert);
+
+			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
+			ps.setInt(1, Integer.parseInt(auctionId));
+			ps.setString(2, winner);
+			ps.setString(3, timestamp);
+			ps.setString(4, "You won! Next step: Pay!");
+			int result = ps.executeUpdate();
+			
+			String updateAuction = "UPDATE auctions SET winnerAlerted = 1 WHERE auctionId=?;";
+			PreparedStatement ps1 = con.prepareStatement(updateAuction);
+			
+			ps.setInt(1, Integer.parseInt(auctionId));
+			int result2 = ps.executeUpdate();
+			
+			PrintWriter out = response.getWriter();
+	        out.print(result2);
 	        db.closeConnection(con);
 				
 		} catch (Exception e) {
