@@ -1,13 +1,10 @@
 (function () {
 	var formValidationOccurred = false;
-	//var bidIncrement = 0;
-	//var minBidAmount = 0;
 	
 	$(document).ready(function(){
 		var auctionId = GetParameterByName('auctionId');
 		$.when(GetAuction(auctionId)).done(function(auctionData){
 			auctionData = JSON.parse(auctionData).d[0];
-			console.log(auctionData);
 			PopulateAuctionDetails(auctionData);
 			EstablishMinimumBidAmount(auctionData);
 			InitializeCurrencyFields();
@@ -72,12 +69,6 @@
 				$.when(SubmitBid()).done(function(result){
 					alert('Your bid has been submitted');
 					window.location.href = window.location.href;
-					/*$.when(GetHighBid()).done(function(highBid){
-						highBid = JSON.parse(highBid).d[0];
-						SetNewHighBid(highBid);
-						alert('Your bid has been submitted');
-						//window.location.href = window.location.href;
-					});*/
 				});
 			}			
 		});
@@ -92,16 +83,6 @@
 			}
 		});
 	}
-	
-	/*function GetHighBid(){
-		return $.ajax({
-			type:'GET',
-			url:'/BuyMe/BiddingAjaxController?fn=GetHighBid&auctionId=' + GetParameterByName('auctionId'),
-			success: function(result){
-				return result;
-			}
-		});
-	}*/
 	
 	function InitializeCurrencyFields(){
 		$.each($('.currency'), function(i, field){
@@ -133,7 +114,6 @@
 		var previousHighBid = $('#txtCurrentHighBid').val().length === 0 ? 0 : $('#txtCurrentHighBid').val();
 		var upperLimit = $('#txtBidAmount').val().length === 0 ? $('#txtBidAmount').attr('placeholder') : $('#txtBidAmount').val();
 		var bidIncrement = $('#txtBidIncrement').val().length === 0 ? 1 : $('#txtBidIncrement').val();
-		//var bidAmount = parseFloat(previousHighBid) + parseFloat(bidIncrement);
 		
 		var queryData = {
 			fn: 'bidAddNew',

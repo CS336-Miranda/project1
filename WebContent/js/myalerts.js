@@ -1,10 +1,15 @@
-$(document).ready(function(){
-	InitializeEventHandlers();
-	$.when(GetAllAlerts()).done(function(gridData){
-		gridData = JSON.parse(gridData).d;
-		InitializeGrid(gridData);
+(function () {
+	$(document).ready(function(){
+		try{
+			InitializeEventHandlers();
+			$.when(GetAllAlerts()).done(function(gridData){
+				gridData = JSON.parse(gridData).d;
+				InitializeGrid(gridData);
+			});
+		}catch(e){
+			console.log(e);
+		}
 	});
-});
 
 function InitializeEventHandlers(){
 	
@@ -51,12 +56,7 @@ function InitializeGrid(gridData){
         filterable: false,
         sortable: true,
         pageable: true,
-        columns: [/*{
-                field:"alertId",
-				title: "Alert Id",
-                filterable: false,
-				width: 100
-            },*/{
+        columns: [{
                 field: "date",
                 title: "Alert Date",
                 format: "{0:MM/dd/yyyy H:mm tt}",
@@ -83,10 +83,6 @@ function InitializeGrid(gridData){
 		       } }
         ],
           dataBound: function(e) {
-            // get the index of the UnitsInStock cell
-            //var columns = e.sender.columns;
-            //var columnIndex = this.wrapper.find(".k-grid-header [data-field=" + "mark" + "]").index();
-
             // iterate the table rows and apply custom row and cell styling
             var rows = e.sender.tbody.children();
             for (var j = 0; j < rows.length; j++) {
@@ -141,4 +137,4 @@ function _markAsRead(alertId){
 	});
 }
 
-
+})();
