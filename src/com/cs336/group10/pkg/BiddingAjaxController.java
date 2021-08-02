@@ -77,6 +77,7 @@ public class BiddingAjaxController extends HttpServlet {
 	    
 		} catch (Exception e) {
 			e.printStackTrace();
+			response.sendRedirect("/BuyMe/Member/viewAuctions.jsp");
 		}
 	}
 

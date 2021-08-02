@@ -12,12 +12,9 @@ try{
 	
 	
 }catch(Exception e){
-	String uri = request.getRequestURI();
-	//String pageName = uri.substring(uri.lastIndexOf("/")+1);
+	String uri = request.getRequestURI() + (request.getQueryString() != null ? "?" + request.getQueryString() : "");
 	String encodedurl = URLEncoder.encode(uri.toString(),"UTF-8"); 
-	 
 	response.sendRedirect("/BuyMe/Account/login.jsp?redirect=" + encodedurl);
-	
 }
 
 %>
