@@ -67,6 +67,7 @@ function InitializeGrid(gridData){
             {
                 field: "highest",
                 title: "Current Bid",
+				format: "{0:c2}"
             },
 			{
                 field: "closeTime",
