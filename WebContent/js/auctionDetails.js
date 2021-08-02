@@ -59,6 +59,7 @@
 
 		if(!data.highestBid){
 			$('#lblCurrentHighBid').text('No bids');
+			$('#lblCurrentHighBid').show();
 			$('#txtCurrentHighBid').hide();
 		}else{
 			//$('#lblCurrentHighBid').hide();

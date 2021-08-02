@@ -81,7 +81,6 @@
 			startTime: startTime,
 			closeTime: closeTime,
 			initialPrice: $('#txtInitialPrice').val(),
-			bidIncrement: $('#txtBidIncrement').val(),
 			minPrice: $('#txtMinPrice').val(),
 			owner: $('#lblnavBarUserName').text()
 		}
@@ -95,7 +94,7 @@
 	
 	function validateForm(){
 		var validated = true;
-		var requiredFields = ['txtTitle','txtDescription','txtName','ddlCategory','ddlSubCategory','txtCompany','txtYear','txtColor','ddlAuctionLength','txtInitialPrice','txtBidIncrement','txtMinPrice'];
+		var requiredFields = ['txtTitle','txtDescription','txtName','ddlCategory','ddlSubCategory','txtCompany','txtYear','txtColor','ddlAuctionLength','txtInitialPrice','txtMinPrice'];
 		
 		if($('#ddlSubCategory').val() === 'laptop'){ requiredFields.push('ddlLaptopTouchScreen'); }
 		else if($('#ddlSubCategory').val() === 'cellphone'){ requiredFields.push('txtCellphoneProvider'); }

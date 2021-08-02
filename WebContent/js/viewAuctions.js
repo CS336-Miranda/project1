@@ -27,7 +27,6 @@ function GetAllAuctions(){
 
 function InitializeGrid(gridData){
 	var kendoGrid = $('#auctions').data("kendoGrid");
-
 	//Check if the element is already initialized with the Kendo Grid widget
 	if (kendoGrid)//Grid is initialized
 	{
@@ -51,7 +50,7 @@ function InitializeGrid(gridData){
                 }
             },
             pageSize: 8,
-  			sort: { field: "auctionId", dir: "desc" },
+  			sort: [{ field: "closeTime", dir: "asc" },{ field: "auctionId", dir: "desc" }]
         },
         height: 600,
         filterable: false,

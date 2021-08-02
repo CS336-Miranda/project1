@@ -90,7 +90,6 @@ public class CreateAuctionAjaxController extends HttpServlet {
 			String title = request.getParameter("title");
 			String startTime = request.getParameter("startTime");
 			String initialPrice = request.getParameter("initialPrice");
-			String bidIncrement = request.getParameter("bidIncrement");
 			String minPrice = request.getParameter("minPrice");
 			String description = request.getParameter("description");
 			String owner = request.getParameter("owner");
@@ -99,8 +98,8 @@ public class CreateAuctionAjaxController extends HttpServlet {
 			response.setContentType("text/json");
 	        response.setCharacterEncoding("UTF-8");
 	        
-			String insert = "insert into auctions (title, startTime, initialPrice, bidIncrement, minPrice, description, owner, closeTime) "
-					+ "VALUES (?,?,?,?,?,?,?,?)";
+			String insert = "insert into auctions (title, startTime, initialPrice, minPrice, description, owner, closeTime) "
+					+ "VALUES (?,?,?,?,?,?,?)";
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(insert);
 
@@ -108,11 +107,10 @@ public class CreateAuctionAjaxController extends HttpServlet {
 			ps.setString(1, title);
 			ps.setString(2, startTime);
 			ps.setFloat(3, Float.parseFloat(initialPrice));
-			ps.setFloat(4, Float.parseFloat(bidIncrement));
-			ps.setFloat(5, Float.parseFloat(minPrice));
-			ps.setString(6, description);
-			ps.setString(7, owner);
-			ps.setString(8, closeTime);
+			ps.setFloat(4, Float.parseFloat(minPrice));
+			ps.setString(5, description);
+			ps.setString(6, owner);
+			ps.setString(7, closeTime);
 			int result = ps.executeUpdate();
 			return result;
 			

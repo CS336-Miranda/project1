@@ -118,16 +118,10 @@
 					    <input id="txtInitialPrice" name="InitialPrice" type="number" class="form-control currency" placeholder="Initial Price">
 				  	</div>
 			  	</div>
-			  	<div class="col-xs-12 col-lg-2">
-					<div class="form-group">
-					    <label for="txtBidIncrement">Bid Increment</label>
-					    <input id="txtBidIncrement" name="BidIncrement" type="number" class="form-control currency" placeholder="Bid Increment">
-				  	</div>
-			  	</div>
 		  		<div class="col-xs-12 col-lg-2">
 					<div class="form-group">
-					    <label for="txtMinPrice">Minimum Reserve Price</label>
-					    <input id="txtMinPrice" name="MinPrice" type="number" class="form-control currency" placeholder="Minimum Reserve Price">
+					    <label for="txtMinPrice">Minimum Reserve Price*</label>
+					    <input id="txtMinPrice" name="MinPrice" type="number" class="form-control currency" placeholder="Minimum Reserve Price" value="1.00">
 				  	</div>
 			  	</div>
 			</div>

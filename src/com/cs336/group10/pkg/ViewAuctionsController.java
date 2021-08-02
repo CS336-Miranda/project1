@@ -49,12 +49,12 @@ public class ViewAuctionsController extends HttpServlet {
 			ApplicationDB db = new ApplicationDB();	
 		 	Connection con = db.getConnection();
 			
-		 	String sqlQuery = "SELECT a.auctionId, a.closeTime, a.startTime, a.title, a.description, highestBid.highest " +
+		 	String sqlQuery = "SELECT a.auctionId, a.closeTime, a.startTime, a.title, a.description, IF(highestBid.highest IS NULL,0,highestBid.highest) highest " +
 		 			"FROM ((((auctions a "+
-		    		"JOIN beingSold b ON a.auctionId = b.auctionId) "+
-		    		"JOIN electronics e ON b.itemId = e.itemId) "+
-		    		"JOIN cellphone c ON e.itemId = c.itemId) "+ 
-		    		"JOIN (SELECT auctionId, max(bidAmount) highest " + 
+		    		"LEFT OUTER JOIN beingSold b ON a.auctionId = b.auctionId) "+
+		    		"LEFT OUTER JOIN electronics e ON b.itemId = e.itemId) "+
+		    		"LEFT OUTER JOIN cellphone c ON e.itemId = c.itemId) "+ 
+		    		"LEFT OUTER JOIN (SELECT auctionId, max(bidAmount) highest " + 
 		    		"FROM bids b "+ 
 		    		"GROUP BY b.auctionId) highestBid "+
 		    		"ON highestBid.auctionId = a.auctionId)";
