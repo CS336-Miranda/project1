@@ -79,6 +79,24 @@
 		var subCategory = data.provider.length > 0 ? 'Cellphone' : data.size.length > 0 ? 'TV' : 'Laptop';
 		$('#txtSubCategory').val(subCategory);
 		
+		switch(subCategory.toLowerCase()){
+			case 'laptop':
+				$('#txtLaptopTouchScreen').val(data.touch ? 'Yes' : 'No');
+				break;
+
+			case 'cellphone':
+				$('#txtCellphoneProvider').val(data.provider);
+				break;
+
+			case 'tv':
+				$('#txtTVSize').val(data.size);
+				break;
+			
+			default:
+		}
+
+		$('.' + subCategory.toLowerCase()).show();
+
 		$('#txtCompany').val(data.company);
 		
 		$('#txtYear').val(data.year);
@@ -87,6 +105,15 @@
 		winnerAlerted = data.winnerAlerted;
 		minPrice = data.minPrice;
 		initialPrice = data.initialPrice;
+		
+		if(CheckIfAuctionEnded(data)){
+			AuctionEnded();
+		}
+	}
+	
+	function CheckIfAuctionEnded(data){
+		var dt = new Date(); 
+		return dt >= kendo.parseDate(data.closeTime);
 	}
 	
 	function InitializeCountdownTimer(closeTime){
@@ -104,6 +131,8 @@
 		$('.rowUpdateLimitBtn').remove();	
 		$('#lblCurrentHighBid').text('Winning Bid:');
 		$('#lblCurrentHighBidder').val('Winner:');
+		$('.is-countdown').addClass('timeRemainingAuctionEnded');
+		$('.is-countdown').text('Auction Has Ended!');
 		
 		if(parseFloat($('txtCurrentHighBid').val()) < minPrice){
 			$('#lblCurrentHighBid').text('Reserve not met');
@@ -198,10 +227,11 @@
 	function AlertWinner(){		
 		var queryData = {
 			fn: 'bidAlertWinner',
-			winner: $('#lblnavBarUserName').text(),
+			winner: $('#txtCurrentHighBidder').val(),
 			auctionId: GetParameterByName('auctionId'),
 			timestamp: kendo.toString(new Date(), 'yyyy-MM-dd HH:mm:ss'),
 		}
+		debugger;
 		return $.ajax({
 			type:'POST',
 			url:'/BuyMe/BiddingAjaxController',

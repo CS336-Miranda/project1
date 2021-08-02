@@ -63,47 +63,51 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-12 col-md-4 col-lg-3">
+					<div class="col-xs-12 col-md-3 col-lg-2">
 						<div class="form-group">
 						    <label for="txtName">Name:</label>
 						    <input id="txtName" name="Name" type="text" class="form-control-plaintext" placeholder="Item name" readonly>
 					  	</div>
 				  	</div>
-				  	<div class="col-xs-12 col-md-4 col-lg-3">
+				  	<div class="col-xs-12 col-md-3 col-lg-2">
 					 	<label for="txtCategory">Category:</label>
 					    <input id="txtCategory" name="Category" type="text" class="form-control-plaintext" placeholder="Category" readonly>
 					 </div>
-					 <div class="col-xs-12 col-md-4 col-lg-3">
+					 <div class="col-xs-12 col-md-3 col-lg-2">
 					 	<label for="txtSubCategory">Subcategory:</label>
 					 	<input id="txtSubCategory" name="SubCategory" type="text" class="form-control-plaintext" placeholder="SubCategory" readonly>
 					 </div>
-					<div class="col-xs-12 col-md-4 col-lg-3 subCategoryAttributes cellphone" style="display: none;">
+					 <div class="col-xs-12 col-lg-2 subCategoryAttributes laptop" style="display: none;">
+						<label for="txtLaptopTouchScreen">Touchscreen?</label>
+					  	<input id="txtLaptopTouchScreen" type="text" class="form-control-plaintext" readonly>
+				  	</div>
+					<div class="col-xs-12 col-md-3 col-lg-2 subCategoryAttributes cellphone" style="display: none;">
 						<div class="form-group">
 						    <label for="txtCellphoneProvider">Provider:</label>
-						    <input id="txtCellphoneProvider" name="CellphoneProvider" type="text" class="form-control subCatAttr" placeholder="">
+						    <input id="txtCellphoneProvider" name="CellphoneProvider" type="text" class="form-control-plaintext subCatAttr" placeholder="" readonly>
 					  	</div>
 				  	</div>
-					<div class="col-xs-12 col-md-4 col-lg-3 subCategoryAttributes tv" style="display: none;">
+					<div class="col-xs-12 col-md-3 col-lg-2 subCategoryAttributes tv" style="display: none;">
 						<div class="form-group">
 						    <label for="txtTVSize">Size (inches):</label>
-						    <input id="txtTVSize" name="TVSize" type="number" class="form-control int subCatAttr">
+						    <input id="txtTVSize" name="TVSize" type="number" class="form-control-plaintext int subCatAttr" readonly>
 					  	</div>
 				  	</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-12 col-md-4 col-lg-3">
+					<div class="col-xs-12 col-md-3 col-lg-2">
 						<div class="form-group">
 						    <label for="txtCompany">Manufacturer:</label>
 						    <input id="txtCompany" name="Company" type="text" class="form-control-plaintext" placeholder="Item Manufacturer" readonly>
 					  	</div>
 				  	</div>
-				  	<div class="col-xs-12 col-md-4 col-lg-3">
+				  	<div class="col-xs-12 col-md-3 col-lg-2">
 						<div class="form-group">
 						    <label for="txtYear">Year:</label>
 						    <input id="txtYear" name="Year" type="number" class="form-control-plaintext int" placeholder="Item Mfr Year" readonly>
 					  	</div>
 				  	</div>
-				  	<div class="col-xs-12 col-md-4 col-lg-3">
+				  	<div class="col-xs-12 col-md-3 col-lg-2">
 						<div class="form-group">
 						    <label for="txtColor">Color:</label>
 						    <input id="txtColor" name="Color" type="text" class="form-control-plaintext" placeholder="Item Color" readonly>

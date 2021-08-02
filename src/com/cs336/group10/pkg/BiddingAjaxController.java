@@ -202,7 +202,7 @@ public class BiddingAjaxController extends HttpServlet {
 			Connection con = db.getConnection();
 
 			String auctionId = request.getParameter("auctionId");
-			String winner = request.getParameter("email");
+			String winner = request.getParameter("winner");
 			String timestamp = request.getParameter("timestamp");
 
 			response.setContentType("text/json");
@@ -219,11 +219,12 @@ public class BiddingAjaxController extends HttpServlet {
 			ps.setString(4, "You won! Next step: Pay!");
 			int result = ps.executeUpdate();
 			
-			String updateAuction = "UPDATE auctions SET winnerAlerted = 1 WHERE auctionId=?;";
+			String updateAuction = "UPDATE auctions SET winnerAlerted = ? WHERE auctionId=?;";
 			PreparedStatement ps1 = con.prepareStatement(updateAuction);
 			
-			ps.setInt(1, Integer.parseInt(auctionId));
-			int result2 = ps.executeUpdate();
+			ps1.setInt(1, 1);
+			ps1.setInt(2, Integer.parseInt(auctionId));
+			int result2 = ps1.executeUpdate();
 			
 			PrintWriter out = response.getWriter();
 	        out.print(result2);
