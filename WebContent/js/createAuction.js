@@ -11,6 +11,15 @@
 			if(event.key==='.'){event.preventDefault();}
 		});
 		
+		$('.restrictedMinimum').change(function() {
+	          var min = parseInt($(this).attr('min'));          
+			  if($(this).val() < min)
+	          {
+	              $(this).val(min);
+				  $(this).val(parseFloat($(this).val()).toFixed(2));
+	          }       
+        });
+		
 		$('#ddlSubCategory').on('change',function(e){
 			$('input.subCatAttr').val('');
 			$('select.boolean').val(0);
@@ -37,6 +46,8 @@
 	}
 	
 	function InitializeCurrencyFields(){
+		$(".currency").attr({"min" : 1 });
+		$(".currency").addClass('restrictedMinimum');
 		$('.currency').on('change', function(e){
 			$(this).val(parseFloat($(this).val()).toFixed(2));
 		});	

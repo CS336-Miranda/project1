@@ -1,4 +1,4 @@
-//(function () {
+(function () {
 	var formValidationOccurred = false;
 	var bidId = 0;
 	var winnerAlerted = 0;
@@ -28,10 +28,12 @@
 			$('.rowSubmitBtn').hide();
 			$('#txtUpdateBidLimit').val(auctionData.upperLimit);
 			$('#txtUpdateBidLimit').attr('placeholder',auctionData.upperLimit);
-			$("txtUpdateBidLimit").attr({"min" : auctionData.upperLimit });
+			$("#txtUpdateBidLimit").attr({"min" : auctionData.upperLimit });
+			$("#txtUpdateBidLimit").addClass('restrictedMinimum');
 			$('#txtUpdateBidIncrement').val(auctionData.highBidderBidIncrement);
 			$('#txtUpdateBidIncrement').attr('placeholder',auctionData.highBidderBidIncrement);
-			$("txtUpdateBidIncrement").attr({"min" : 0 });
+			$("#txtUpdateBidIncrement").attr({"min" : 0 });
+			$("#txtUpdateBidIncrement").addClass('restrictedMinimum');
 			$('#chkUpdateHighBidAlert').prop('checked',auctionData.higherBidAlert);
 			$('.rowUpdateLimitBtn').show();
 		}
@@ -40,10 +42,13 @@
 	function EstablishMinimumBidAmount(data){
 		var bidIncrement = 1;
 		$("#txtBidIncrement").attr({"min" : bidIncrement });
+		$("#txtBidIncrement").addClass('restrictedMinimum');
+		
 		
 		var minBidAmount = data.highestBid ? parseFloat(data.highestBid) +  parseFloat(bidIncrement) : parseFloat(bidIncrement);
 		$('#txtBidAmount').attr('placeholder', minBidAmount.toFixed(2));
 		$("#txtBidAmount").attr({"min" : minBidAmount });
+		$("#txtBidAmount").addClass('restrictedMinimum');
 	}
 	
 	function PopulateAuctionDetails(data){
@@ -114,6 +119,15 @@
 		$('.currency').on('change', function(e){
 			$(this).val(parseFloat($(this).val()).toFixed(2));
 		});
+		
+		$(".restrictedMinimum").change(function() {
+	          var min = parseInt($(this).attr('min'));
+	          if($(this).val() < min)
+	          {
+	              $(this).val(min);
+				  $(this).val(parseFloat($(this).val()).toFixed(2));
+	          }       
+        });
 		
 		$('#btnSubmitBid').on('click', function(e){
 			e.preventDefault();
@@ -254,5 +268,4 @@
 		
 		return validated;
 	}
-//})();
-
+})();
