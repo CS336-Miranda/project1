@@ -1,4 +1,4 @@
-(function () {
+//(function () {
 	var formValidationOccurred = false;
 	var bidId = 0;
 	var winnerAlerted = 0;
@@ -254,5 +254,5 @@
 		
 		return validated;
 	}
-})();
+//})();
 

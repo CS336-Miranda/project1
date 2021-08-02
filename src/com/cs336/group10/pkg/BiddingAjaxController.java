@@ -59,12 +59,13 @@ public class BiddingAjaxController extends HttpServlet {
 		 			"LEFT OUTER JOIN _cs336_buyme.laptop l on (l.itemId = e.itemId) " + 
 		 			"LEFT OUTER JOIN _cs336_buyme.cellphone c on (c.itemId = e.itemId) " + 
 		 			"LEFT OUTER JOIN _cs336_buyme.tv t on (t.itemId = e.itemId) " + 
-		 			"LEFT OUTER JOIN ( SELECT auctionId, bidId, bidAmount highestBid, email highBidder, upperLimit, bidIncrement highBidderBidIncrement, higherBidAlert FROM bids ORDER BY bidId DESC LIMIT 1) b on (a.auctionId = b.auctionId) " +
+		 			"LEFT OUTER JOIN ( SELECT auctionId, bidId, bidAmount highestBid, email highBidder, upperLimit, bidIncrement highBidderBidIncrement, higherBidAlert FROM bids WHERE auctionId = ? ORDER BY bidId DESC LIMIT 1) b on (a.auctionId = b.auctionId) " +
 		 			"WHERE a.auctionId = ?;";
 			PreparedStatement ps = con.prepareStatement(sqlQuery);
 			
 			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
 			ps.setInt(1, auctionId);
+			ps.setInt(2, auctionId);
 			
 			ResultSet resultSet = ps.executeQuery();	 
 		    
