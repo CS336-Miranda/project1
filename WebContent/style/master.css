@@ -146,12 +146,16 @@ input[type=number] {
 	button {
 	    width: 100%;
 	  }
-  .navbar-toggler {
-    width: 55px !important;
-    margin-right: 10px !important;
-	}
+  
 }
 
+/* Starting with small devices (0px and up) */
+@media only screen and (min-width: 0px){
+  .navbar-toggler {
+	    width: 55px !important;
+	    margin-right: 10px !important;
+	}
+}
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
 	button {

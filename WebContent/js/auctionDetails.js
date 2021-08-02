@@ -3,6 +3,7 @@
 	var bidId = 0;
 	var winnerAlerted = 0;
 	var minPrice = 0;
+	var initialPrice = 1;
 	
 	$(document).ready(function(){
 		var auctionId = GetParameterByName('auctionId');
@@ -44,11 +45,15 @@
 		$("#txtBidIncrement").attr({"min" : bidIncrement });
 		$("#txtBidIncrement").addClass('restrictedMinimum');
 		
-		
-		var minBidAmount = data.highestBid ? parseFloat(data.highestBid) +  parseFloat(bidIncrement) : parseFloat(bidIncrement);
+		if(data.highestBid){
+			var minBidAmount = data.highestBid ? parseFloat(data.highestBid) +  parseFloat(bidIncrement) : parseFloat(bidIncrement);
+		}else{
+			var minBidAmount = data.initialPrice;
+		}
 		$('#txtBidAmount').attr('placeholder', minBidAmount.toFixed(2));
 		$("#txtBidAmount").attr({"min" : minBidAmount });
 		$("#txtBidAmount").addClass('restrictedMinimum');
+
 	}
 	
 	function PopulateAuctionDetails(data){
@@ -58,11 +63,10 @@
 		$('#txtCloseTime').val(kendo.toString(kendo.parseDate(data.closeTime), "ddd MMM dd, yyyy h:mm tt" ));
 
 		if(!data.highestBid){
-			$('#lblCurrentHighBid').text('No bids');
-			$('#lblCurrentHighBid').show();
-			$('#txtCurrentHighBid').hide();
+			$('#lblCurrentHighBid').text('Starting Price:')
+			$('#txtCurrentHighBid').val(data.initialPrice);
+			$('#txtCurrentHighBidder').val('No bidders yet.');
 		}else{
-			//$('#lblCurrentHighBid').hide();
 			$('#txtCurrentHighBid').val(data.highestBid);
 			$('#txtCurrentHighBidder').val(data.highBidder);
 		}
@@ -82,6 +86,7 @@
 		
 		winnerAlerted = data.winnerAlerted;
 		minPrice = data.minPrice;
+		initialPrice = data.initialPrice;
 	}
 	
 	function InitializeCountdownTimer(closeTime){
@@ -97,7 +102,7 @@
 	function AuctionEnded(){
 		$('.rowSubmitBtn').remove();
 		$('.rowUpdateLimitBtn').remove();	
-		$('#lblCurrentHighBid2').text('Winning Bid:');
+		$('#lblCurrentHighBid').text('Winning Bid:');
 		$('#lblCurrentHighBidder').val('Winner:');
 		
 		if(parseFloat($('txtCurrentHighBid').val()) < minPrice){
@@ -132,7 +137,7 @@
 		
 		$('#btnSubmitBid').on('click', function(e){
 			e.preventDefault();
-			if(validateForm('bid')){
+			if(validateForm()){
 				$.when(SubmitBid()).done(function(result){
 					window.location.href = window.location.href;
 				});
@@ -141,7 +146,7 @@
 		
 		$('#btnUpdateBid').on('click',function(e){
 			e.preventDefault();
-			if(validateForm('update')){
+			if(validateForm()){
 				$.when(UpdateBid()).done(function(result){
 					window.location.href = window.location.href;
 				});
@@ -217,7 +222,8 @@
 			upperLimit: upperLimit,
 			bidIncrement: bidIncrement,
 			timestamp: kendo.toString(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-			previousHighBid: previousHighBid
+			previousHighBid: previousHighBid,
+			initialPrice: initialPrice
 		}
 		return $.ajax({
 			type:'POST',
@@ -245,9 +251,8 @@
 		});
 	}
 	
-	function validateForm(submitType){
+	function validateForm(){
 		var validated = true;
-		//var requiredFields = ['txtBidAmount','txtBidIncrement'];
 		requiredFields = [];
 		
 		$.each(requiredFields, function(i, fieldName){

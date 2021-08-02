@@ -52,7 +52,7 @@ public class BiddingAjaxController extends HttpServlet {
 			
 		 	int auctionId = Integer.parseInt(request.getParameter("auctionId"));
 		 	
-		 	String sqlQuery = "SELECT a.auctionId, b.bidId, b.highestBid, b.highBidder, b.upperLimit, b.higherBidAlert, b.highBidderBidIncrement, a.minPrice, a.closeTime, a.startTime, a.title, a.description, a.bidIncrement, a.initialPrice, a.owner, bs.itemId, e.name, e.company, e.year, e.color, l.touch, c.provider, t.size, a.winnerAlerted " + 
+		 	String sqlQuery = "SELECT a.auctionId, b.bidId, b.highestBid, b.highBidder, b.upperLimit, b.higherBidAlert, b.highBidderBidIncrement, a.minPrice, a.closeTime, a.startTime, a.title, a.description, a.initialPrice, a.owner, bs.itemId, e.name, e.company, e.year, e.color, l.touch, c.provider, t.size, a.winnerAlerted " + 
 		 			"FROM _cs336_buyme.auctions a " +
 		 			"JOIN _cs336_buyme.beingSold bs on a.auctionId = bs.auctionId " + 
 		 			"JOIN _cs336_buyme.electronics e on e.itemId = bs.itemId " + 
@@ -131,11 +131,12 @@ public class BiddingAjaxController extends HttpServlet {
 			String bidIncrement = request.getParameter("bidIncrement");
 			String timeStamp = request.getParameter("timestamp");
 			String previousHighBid = request.getParameter("previousHighBid");
+			String initialPrice = request.getParameter("initialPrice");
 			
 			response.setContentType("text/json");
 	        response.setCharacterEncoding("UTF-8");
 	        
-	        String sp_setHighBid = "CALL sp_SetHighBid(?,?,?,?,?,?,?);";
+	        String sp_setHighBid = "CALL sp_SetHighBid(?,?,?,?,?,?,?,?);";
 	        
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(sp_setHighBid);
@@ -148,6 +149,7 @@ public class BiddingAjaxController extends HttpServlet {
 			ps.setFloat(5, Float.parseFloat(bidIncrement));
 			ps.setString(6, timeStamp);
 			ps.setFloat(7, Float.parseFloat(previousHighBid));
+			ps.setFloat(8, Float.parseFloat(initialPrice));
 			
 			int result = ps.executeUpdate();
 			return result;
