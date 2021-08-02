@@ -54,7 +54,7 @@ function InitializeGrid(gridData){
   			sort: { field: "auctionId", dir: "desc" },
         },
         height: 600,
-        filterable: false,
+        filterable: true,
         sortable: true,
         pageable: true,
         columns: [{
