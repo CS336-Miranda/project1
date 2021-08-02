@@ -70,7 +70,7 @@ function InitializeQuestionsGrid(gridData){
   			sort: { field: "questionId", dir: "desc" },
         },
         height: 600,
-        filterable: false,
+        filterable: true,
         sortable: true,
         pageable: true,
         columns: [{
