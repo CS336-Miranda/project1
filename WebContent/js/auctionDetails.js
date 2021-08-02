@@ -119,7 +119,6 @@
 			e.preventDefault();
 			if(validateForm('bid')){
 				$.when(SubmitBid()).done(function(result){
-					alert('Your bid has been submitted');
 					window.location.href = window.location.href;
 				});
 			}			
@@ -129,7 +128,6 @@
 			e.preventDefault();
 			if(validateForm('update')){
 				$.when(UpdateBid()).done(function(result){
-					alert('Your bid has been updated');
 					window.location.href = window.location.href;
 				});
 			}	
