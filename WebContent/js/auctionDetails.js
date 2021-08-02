@@ -231,7 +231,6 @@
 			auctionId: GetParameterByName('auctionId'),
 			timestamp: kendo.toString(new Date(), 'yyyy-MM-dd HH:mm:ss'),
 		}
-		debugger;
 		return $.ajax({
 			type:'POST',
 			url:'/BuyMe/BiddingAjaxController',
