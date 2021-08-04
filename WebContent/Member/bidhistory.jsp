@@ -18,7 +18,7 @@
 	</div>
 	<div class="row">
 		<div class="col-10">
-			<div id="grdAlerts"></div>
+			<div id="bids"></div>
 		</div>
 	</div>
 </div>
