@@ -36,7 +36,10 @@ public class ViewAuctionsController extends HttpServlet {
 		switch(request.getParameter("fn")) {
 		  case "AuctionsAll":
 			  _auctionsAll(request, response);
-		    break;
+			  break;
+		  case "UserAuctions":
+			  _userAuctions(request, response);
+			  break;
 		  default:
 		    // code block
 		}
@@ -58,6 +61,40 @@ public class ViewAuctionsController extends HttpServlet {
 		    		"FROM bids b "+ 
 		    		"GROUP BY b.auctionId) highestBid "+
 		    		"ON highestBid.auctionId = a.auctionId)";
+		 	
+			PreparedStatement ps = con.prepareStatement(sqlQuery);
+			
+			ResultSet rs = ps.executeQuery();	 
+		    
+			JSONConverter jc = new JSONConverter();
+			String jsonResult = jc.convertToJSON(rs);
+			
+			PrintWriter out = response.getWriter();
+	        out.print(jsonResult);
+	        db.closeConnection(con);
+	    
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void _userAuctions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			
+			String email = request.getParameter("email");
+			
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+		 	Connection con = db.getConnection();
+			
+		 	String sqlQuery = "SELECT a.auctionId, a.closeTime, a.startTime, a.title, a.description " + 
+		 			"FROM auctions a " + 
+		 			"WHERE a.owner = '"+ email +"' " + 
+		 			"UNION " + 
+		 			"SELECT a.auctionId, a.closeTime, a.startTime, a.title, a.description " + 
+		 			"FROM auctions a JOIN bids b USING(auctionId) " + 
+		 			"WHERE b.email = '" + email +"'";
 		 	
 			PreparedStatement ps = con.prepareStatement(sqlQuery);
 			
