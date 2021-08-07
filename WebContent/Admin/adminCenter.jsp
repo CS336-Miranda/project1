@@ -15,6 +15,9 @@
 		    <div class="col-xs-1 col-lg-3">
 		         <button id="btnRegisterrep" class="landingPageButton">Create Customer Rep Account</button>
 		     </div>
+		     <div class="col-xs-1 col-lg-3">
+		         <button id="btnSalesreport" class="landingPageButton">Create Sales Report</button>
+		     </div>
 		</div>
 	</div>
 	<script>   
