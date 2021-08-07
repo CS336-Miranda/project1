@@ -27,4 +27,9 @@ function InitializeEventHandlers(){
 		e.preventDefault();
 		window.location.href='../CustomerRep/customerRepCenter.jsp';
 	});
+	
+	$('#btnWatchList').on('click', function(e){
+		e.preventDefault();
+		window.location.href='watchList.jsp';
+	});
 }

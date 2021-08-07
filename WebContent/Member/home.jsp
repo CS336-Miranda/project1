@@ -28,6 +28,9 @@
 		    <div class="col-xs-1 col-lg-3 customerRepsOnly">
 		    	<button id="btnCustomerRepCenter" class="landingPageButton">Customer Rep Center</button>
 		    </div>
+		    <div class="col-xs-1 col-lg-3">
+		         <button id="btnWatchList" class="landingPageButton">Watch List</button>
+		    </div>
 		</div>
    </div>
    
