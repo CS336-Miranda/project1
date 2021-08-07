@@ -40,6 +40,9 @@ public class ViewAuctionsController extends HttpServlet {
 		  case "UserAuctions":
 			  _userAuctions(request, response);
 			  break;
+		  case "SimilarAuctions":
+			  _similarAuctions(request, response);
+			  break;
 		  default:
 		    // code block
 		}
@@ -95,6 +98,45 @@ public class ViewAuctionsController extends HttpServlet {
 		 			"SELECT a.auctionId, a.closeTime, a.startTime, a.title, a.description " + 
 		 			"FROM auctions a JOIN bids b USING(auctionId) " + 
 		 			"WHERE b.email = '" + email +"'";
+		 	
+			PreparedStatement ps = con.prepareStatement(sqlQuery);
+			
+			ResultSet rs = ps.executeQuery();	 
+		    
+			JSONConverter jc = new JSONConverter();
+			String jsonResult = jc.convertToJSON(rs);
+			
+			PrintWriter out = response.getWriter();
+	        out.print(jsonResult);
+	        db.closeConnection(con);
+	    
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void _similarAuctions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+		 	Connection con = db.getConnection();
+			
+		 	String category = request.getParameter("type");
+		 	String auctionId = request.getParameter("id");
+		 	
+		 	String sqlQuery = "SELECT * " + 
+		 			"FROM ((( " + 
+		 			"SELECT itemId " + 
+		 			"FROM ((electronics e LEFT OUTER JOIN cellphone c USING(itemId)) " + 
+		 			"LEFT OUTER JOIN laptop l USING(itemId)) " + 
+		 			"LEFT OUTER JOIN tv t USING(itemId) " + 
+		 			"WHERE " + category + " IS NOT NULL) t " + 
+		 			"JOIN beingSold USING(itemId)) " + 
+		 			"JOIN auctions USING(auctionId)) " +
+		 			"WHERE month(closeTime)=month(now())-1 " +
+		 			"AND auctionId <> " + auctionId ;
 		 	
 			PreparedStatement ps = con.prepareStatement(sqlQuery);
 			

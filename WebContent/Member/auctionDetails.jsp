@@ -8,6 +8,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
 <style>
 	#btnCreateAuction {
 		width: 100%;
@@ -205,6 +207,20 @@
 	</div>
 
 </form>
+
+<div class="content">
+	<div class="row">
+		<div class="col-12">
+			<hr/>
+			<h2> Similar items in the past month<label id="lblTitle"></label></h2>
+			<div class="row">
+				<div class="col-12">
+					<div id="auctions"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
    <script> 
  //cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/css/bootstrapvalidator.min.css 

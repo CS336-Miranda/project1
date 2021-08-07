@@ -67,10 +67,10 @@ function UserAuctionsGrid(gridData){
                     }
                 }
             },
-            pageSize: 8,
+            pageSize: 12,
   			sort: [{ field: "closeTime", dir: "asc" },{ field: "auctionId", dir: "desc" }]
         },
-        height: 600,
+        height: 800,
         filterable: true,
         sortable: true,
         pageable: true,
@@ -117,10 +117,10 @@ function InitializeGrid(gridData){
                     }
                 }
             },
-            pageSize: 8,
+            pageSize: 12,
   			sort: [{ field: "closeTime", dir: "asc" },{ field: "auctionId", dir: "desc" }]
         },
-        height: 600,
+        height: 800,
         filterable: true,
         sortable: true,
         pageable: true,
