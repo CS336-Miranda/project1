@@ -19,14 +19,14 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-10">
-			<div class="mb-3">
-			  <label for="txtQuestion" class="form-label">What would you like to watch?</label>
-			  <textarea class="form-control" id="txtWatch" rows="3"></textarea><br/>
-			  <button id="btnSubmit" type="submit" class="btn btn-primary mb-3">Watch</button>  
+		<div class="col-4">
+			<div class="input-group mb-3">
+			  <input type="text" class="form-control" id="itemKeyword" placeholder="What would you like to keep an eye on...">
+			  <button class="btn btn-outline-secondary" type="button" id="addItem">Add to Watch List</button>
 			</div>
 		</div>
 	</div>
+	
 	<div class="row">
 		<div class="col-10">
 			<div id="grdWatchItems"></div>
