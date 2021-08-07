@@ -82,7 +82,7 @@
 		
 		$('#txtName').val(data.name);
 		$('#txtCategory').val('Electronics');
-		var subCategory = data.provider.length > 0 ? 'Cellphone' : data.size.length > 0 ? 'TV' : 'Laptop';
+		var subCategory = data.provider ? 'Cellphone' : data.size ? 'TV' : 'Laptop';
 		$('#txtSubCategory').val(subCategory);
 		
 		switch(subCategory.toLowerCase()){
