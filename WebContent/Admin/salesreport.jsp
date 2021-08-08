@@ -17,6 +17,11 @@
 			<h1>Sales Report</h1>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-10">
+			<div id="salesreport"></div>
+		</div>
+	</div>
 <script>   
    $.getScript("../js/salesreport.js?rev=" + Date.now(), function( data, textStatus, jqxhr ) {
 	 });
