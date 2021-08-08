@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+</head>
+<body>
+<%@ page import="java.net.*" %>
+   <%
+try{
+	String sessionUser = session.getAttribute("user").toString();
+	session.setAttribute("user", sessionUser);
+	
+	
+}catch(Exception e){
+	String uri = request.getRequestURI() + (request.getQueryString() != null ? "?" + request.getQueryString() : "");
+	String encodedurl = URLEncoder.encode(uri.toString(),"UTF-8"); 
+	response.sendRedirect("/BuyMe/Account/login.jsp?redirect=" + encodedurl);
+}
+
+%>
+</body>
+</html>

@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@include file="/master.html"%>
+<%@include file="../MasterPages/master.html"%>
 <!DOCTYPE html>
 <html>
    <head>
    </head>
    <body>
-     <form action="checkLoginDetails.jsp" method="POST">
+     <form action="checkLoginDetails.jsp?redirect=<%= request.getParameter("redirect")%>" method="POST">
      
      	<div id="divAuth">
             <img id="productLogo" src="${pageContext.request.contextPath}/Images/BuyMeLogo.png">

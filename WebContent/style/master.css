@@ -2,6 +2,10 @@
 body {
   background-color: rgba(5,55,80,1);
   color: white;
+  overflow-x: hidden;
+}
+div.content {
+	margin: 0 15px;	
 }
 a {
 	color: white;
@@ -39,7 +43,7 @@ div#divAuth {
   text-align: center;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.2), 0 1px 0 #fff;
 }
-input[type="password"], input[type="text"] {
+.login input[type="password"], .login input[type="text"], .register input[type="password"], .register input[type="text"] {
   border: 1px solid #a1a3a3;
   border-radius: 4px;
   box-shadow: 0 1px #fff;
@@ -51,7 +55,7 @@ input[type="password"], input[type="text"] {
   transition: box-shadow 0.3s;
   width: 220px;
 }
-input[type="password"]:focus, input[type="text"]:focus {
+.login input[type="password"]:focus, .login input[type="text"]:focus, .register input[type="password"]:focus, .register input[type="text"]:focus  {
   box-shadow: 0 0 4px 1px rgba(55, 166, 155, 0.3);
   outline: 0;
 }
@@ -101,4 +105,87 @@ input[type="password"]:focus, input[type="text"]:focus {
 #btnSignIn[disabled="disabled"]{
 	background-color: grey;
 	cursor: default;
+}
+.landingPageButton {
+    width: 90%;
+    height: 50px;
+    margin: 20px;
+}
+
+.row {
+	margin-top: 5px;
+}
+.rowSubmitBtn {
+	margin-top: 25px;
+}
+form {
+    margin-top: 25px;
+}
+.form-control-plaintext {
+	color: white;
+	font-size: 134%;
+}
+.boldGridRow {
+	font-weight: bold;
+}
+
+.timeRemainingAuctionEnded {
+    font-size: 134%;
+    padding: 5px 0 0 0;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+	button {
+	    width: 100%;
+	  }
+  
+}
+
+/* Starting with small devices (0px and up) */
+@media only screen and (min-width: 0px){
+  .navbar-toggler {
+	    width: 55px !important;
+	    margin-right: 10px !important;
+	}
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+	button {
+	    width: 100%;
+	  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+	button {
+	    width: 100%;
+	  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+	button {
+	    width: unset;
+	  }
+	#btnViewBidHistory{
+		margin-left: 10px;
+	}
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
 }

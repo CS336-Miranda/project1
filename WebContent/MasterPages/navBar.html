@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+.navbar-collapse {
+	margin: 0 20px;
+}
+</style>
+
+</head>
+<body>
+
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"><img id="imgNavBarLogo" src="/BuyMe/Images/BuyMeLogo.png" alt="" width="90" height="45"></a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/BuyMe/Member/home.jsp">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/BuyMe/Member/createAuction.jsp">Create Auction</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/BuyMe/Member/viewAuctions.jsp">View Auctions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/BuyMe/Member/questions.jsp">Questions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/BuyMe/Admin/adminCenter.jsp">Admin Center</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="customerRepCenter.jsp">Customer Rep Center</a>
+      </li>
+    </ul>
+
+    <!-- Right Element -->
+	<ul class="navbar-nav ms-auto mb-2 mb-lg-0" style="color: #444;margin-right: 20px;">
+		<li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          <label id="lblnavBarUserName">${sessionScope.user}</label>
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+     	      <a class="dropdown-item" href="/BuyMe/Member/myalerts.jsp">My Alerts</a>
+     	      <a class="dropdown-item" href="/BuyMe/Member/watchList.jsp">My Watch List</a>
+	          <a class="dropdown-item" href="/BuyMe/Account/logout.jsp">Log Out</a>
+	          <div class="dropdown-divider"></div>
+	          <a id="deleteAccount" class="dropdown-item" href="#">Delete My Account</a>
+	        </div>
+	      </li>
+	 </ul>
+	<!-- End Right Element -->
+	
+  </div>
+</nav>
+
+<script>
+	$(document).ready(function(){
+		$('#deleteAccount').on('click',function(e){
+			e.preventDefault();
+			if (confirm('Are you sure you want to delete your account?')) {
+			  window.location.href='/BuyMe/Member/deleteAccount.jsp';
+			} else {
+			  // Do nothing!
+			  alert('Yikes. That was close!');
+			}
+		});
+	});
+</script>
+
+</body>
+</html>
