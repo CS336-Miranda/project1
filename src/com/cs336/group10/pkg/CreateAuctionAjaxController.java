@@ -75,6 +75,9 @@ public class CreateAuctionAjaxController extends HttpServlet {
 			int subcategoryResult = _insertSubCategoryItem(request, response, con, insertedElectronicsId);
 			int beingSoldResult = _insertBeingSoldItem(request, response, con, insertedAuctionId, insertedElectronicsId);
 			
+			//Alert any watchers that what they've been waiting for has arrived
+			_alertWatcher(request, response, con, insertedAuctionId);
+			
 			PrintWriter out = response.getWriter();
 	        out.print(insertedElectronicsId);
 	        db.closeConnection(con);
@@ -225,6 +228,39 @@ public class CreateAuctionAjaxController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	private void _alertWatcher(HttpServletRequest request, HttpServletResponse response, java.sql.Connection con,  int auctionId) throws ServletException, IOException {
+		try {
+			
+			String title = request.getParameter("title");
+			String email;
+			String keyword;
+			
+			//Get list of emails that are watching the item that was just posted
+			String grabEmails = "SELECT email, keywords " + 
+								"FROM watchList " + 
+								"WHERE '" + title +"' LIKE CONCAT('%', keywords ,'%')";
+			
+			PreparedStatement ps = con.prepareStatement(grabEmails);
+			ResultSet resultSet = ps.executeQuery();
+			
+			//Loop through list of emails to INSERT an alert for each one
+			while (resultSet.next()) {
+		        email = resultSet.getString(1);
+		        keyword = resultSet.getString(2);
+		        
+		        String addAlerts = "INSERT INTO alerts(auctionId, email, date, alertMessage) " +
+		        					"VALUES (" + auctionId + ",'" + email + "', current_timestamp(), 'Auction relating to " + keyword + " available!')";
+		        
+		        PreparedStatement ps2 = con.prepareStatement(addAlerts);
+				ps2.executeUpdate();
+		    }
+				
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
