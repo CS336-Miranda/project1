@@ -37,7 +37,6 @@
    
    <script>   
    $.getScript("../js/home.js?rev=" + Date.now(), function( data, textStatus, jqxhr ) {
-	   // this is your callback.
 	 });
    </script>
 
