@@ -32,11 +32,11 @@
 		
 		<div class="col-2">
 			<div class="input-group">
-			  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+			  <select class="form-select" id="sortBy">
 			    <option selected>Sort By...</option>
-			    <option value="1">Title</option>
-			    <option value="2">Bid</option>
-			    <option value="3">Date</option>
+			    <option value="title">Title</option>
+			    <option value="highest">Bid</option>
+			    <option value="closeTime">Date</option>
 			  </select>
 			  <button class="btn btn-outline-secondary" type="button" id="sorting">Sort</button>
 			</div>
