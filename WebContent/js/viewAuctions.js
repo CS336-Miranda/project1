@@ -33,6 +33,15 @@ function InitializeEventHandlers(){
 	});
 	
 	//Search
+	$('#filtering').on('click', function(){
+			
+			var activity = "filter";
+			
+			$.when(GetAuctionsBy(activity)).done(function(gridData){
+				gridData = JSON.parse(gridData).d;
+				InitializeGrid(gridData);
+			});
+		});
 }
 
 function GetAllAuctions(){
@@ -63,10 +72,16 @@ function GetAuctionsBy(activity){
 	
 	if(activity == "sort"){
 		
-		var criteria = {val: $('#sortBy').val()}
+		var criteria = {
+						val: $('#sortBy').val(),
+						act: activity
+						}
 		
 	}else{
-		
+		var criteria = {
+						val: $('#filter').val(),
+						act: activity
+						}
 		
 	}
 	

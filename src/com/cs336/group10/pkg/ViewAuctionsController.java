@@ -123,21 +123,42 @@ public class ViewAuctionsController extends HttpServlet {
 		try {
 			
 			String criteria = request.getParameter("val");
+			String activity = request.getParameter("act");
+			
+			System.out.print(criteria);
 			
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 		 	Connection con = db.getConnection();
-			
-		 	String sqlQuery = "SELECT a.auctionId, a.closeTime, a.startTime, a.title, a.description, IF(highestBid.highest IS NULL,0,highestBid.highest) highest " +
-		 			"FROM ((((auctions a "+
-		    		"LEFT OUTER JOIN beingSold b ON a.auctionId = b.auctionId) "+
-		    		"LEFT OUTER JOIN electronics e ON b.itemId = e.itemId) "+
-		    		"LEFT OUTER JOIN cellphone c ON e.itemId = c.itemId) "+ 
-		    		"LEFT OUTER JOIN (SELECT auctionId, max(bidAmount) highest " + 
-		    		"FROM bids b "+ 
-		    		"GROUP BY b.auctionId) highestBid "+
-		    		"ON highestBid.auctionId = a.auctionId) " +
-		    		"ORDER BY " + criteria + " ASC" ;
+		 	
+		 	String sqlQuery = "";
+		 	
+		 	if(activity.equals("sort")) {
+		 	
+			 	sqlQuery = "SELECT a.auctionId, a.closeTime, a.startTime, a.title, a.description, IF(highestBid.highest IS NULL,0,highestBid.highest) highest " +
+			 			"FROM ((((auctions a "+
+			    		"LEFT OUTER JOIN beingSold b ON a.auctionId = b.auctionId) "+
+			    		"LEFT OUTER JOIN electronics e ON b.itemId = e.itemId) "+
+			    		"LEFT OUTER JOIN cellphone c ON e.itemId = c.itemId) "+ 
+			    		"LEFT OUTER JOIN (SELECT auctionId, max(bidAmount) highest " + 
+			    		"FROM bids b "+ 
+			    		"GROUP BY b.auctionId) highestBid "+
+			    		"ON highestBid.auctionId = a.auctionId) " +
+			    		"ORDER BY " + criteria + " ASC" ;
+		 	}else {
+		 		sqlQuery = "SELECT a.auctionId, a.closeTime, a.startTime, a.title, a.description, IF(highestBid.highest IS NULL,0,highestBid.highest) highest " +
+			 			"FROM ((((auctions a "+
+			    		"LEFT OUTER JOIN beingSold b ON a.auctionId = b.auctionId) "+
+			    		"LEFT OUTER JOIN electronics e ON b.itemId = e.itemId) "+
+			    		"LEFT OUTER JOIN cellphone c ON e.itemId = c.itemId) "+ 
+			    		"LEFT OUTER JOIN (SELECT auctionId, max(bidAmount) highest " + 
+			    		"FROM bids b "+ 
+			    		"GROUP BY b.auctionId) highestBid "+
+			    		"ON highestBid.auctionId = a.auctionId) " +
+			    		"WHERE a.title LIKE '%" + criteria + "%' OR " +
+			    		"a.description LIKE '%" + criteria + "%' ";
+		 	}
+		 	
 		 	
 			PreparedStatement ps = con.prepareStatement(sqlQuery);
 			
