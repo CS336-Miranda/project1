@@ -18,11 +18,7 @@ function isEmail(email) {
   return regex.test(email);
 }
          
-function InitializeLoginRegisterEventHandlers(){
-	 $('.validate').on('keyup', function(){
-		 validateLoginRegisterForm(); 
-	 });
-}
+
 
 function validateLoginRegisterForm(){
 	if(isEmail($('#email').val()) && $('#password').val().length > 0){
