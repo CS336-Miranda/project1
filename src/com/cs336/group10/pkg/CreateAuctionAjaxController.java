@@ -235,13 +235,16 @@ public class CreateAuctionAjaxController extends HttpServlet {
 		try {
 			
 			String title = request.getParameter("title");
+			String name = request.getParameter("name");
+			
 			String email;
 			String keyword;
 			
 			//Get list of emails that are watching the item that was just posted
 			String grabEmails = "SELECT email, keywords " + 
 								"FROM watchList " + 
-								"WHERE '" + title +"' LIKE CONCAT('%', keywords ,'%')";
+								"WHERE '" + title +"' LIKE CONCAT('%', keywords ,'%') OR " +
+								"'" + name +"' LIKE CONCAT('%', keywords ,'%')";
 			
 			PreparedStatement ps = con.prepareStatement(grabEmails);
 			ResultSet resultSet = ps.executeQuery();
