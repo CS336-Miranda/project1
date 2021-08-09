@@ -42,7 +42,7 @@ function InitializeGrid(gridData){
                     	//startTime: { type: "date" },
 						//title: { type: "string" },
                        // description: { type: "string" },
-						//highest: { type: "number" },
+						highest: { type: "number" },
 						minPrice: { type: "number"}
                     }
                 }
@@ -67,16 +67,17 @@ function InitializeGrid(gridData){
                 field: "highest",
                 title: "Current Bid",
 				format: "{0:c2}"
-            },
-			{
-                field: "closeTime",
-                title: "Auction Ends",
-                format: "{0:MM/dd/yyyy hh:mm tt}",
-    			width: 250
             },*/
+			{
+                field: "highest",
+                title: "Earnings Per Item",
+                format: "{0:c2}",
+    			
+            },
 			{
 				field: "minPrice",
 				title: "Total Earnings",
+				format:"{0:c2}",
 				
 				
 			}

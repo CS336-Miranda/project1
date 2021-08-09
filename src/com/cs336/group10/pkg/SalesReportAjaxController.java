@@ -51,7 +51,7 @@ public class SalesReportAjaxController extends HttpServlet {
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();
 		
-			String sqlquery = "select sum(a.minPrice) TotalEarnings from auctions a;";
+			String sqlquery = "select sum(a.minPrice) minPrice,sum(a.minprice)/count(*) highest from auctions a where a.minPrice > a.initialPrice;";
 			PreparedStatement ps = con.prepareStatement(sqlquery);
 			ResultSet resultSet = ps.executeQuery();	
 			JSONConverter jc = new JSONConverter();
@@ -59,7 +59,7 @@ public class SalesReportAjaxController extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			
 			out.print(jsonResult);
-			   db.closeConnection(con);
+			db.closeConnection(con);
 
 			
 		} catch (Exception e) {
