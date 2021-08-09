@@ -19,6 +19,13 @@
 			  <button id="btnSubmit" type="submit" class="btn btn-primary mb-3">Post</button>  
 			</div>
 		</div>
+		
+		<div class="col-2">
+			<div class="input-group mb-3">
+			  <input type="text" class="form-control" id="filter" placeholder="Enter search parameter..">
+			  <button class="btn btn-outline-secondary" type="button" id="filtering">Filter</button>
+			</div>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-10">
