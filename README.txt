@@ -28,5 +28,5 @@ Project checklist development responsibilities:
   * jQuery v3.2.1 used under the MIT license.
   * Boostrap v5.0.2 used under the MIT license
   * Boostrap-Validator v0.4.5 used under the MIT license
-  * Kendo UI for jQuery v2021.2.616: Erwin is currently a licensed Telerik DevCraft Complete developer (licenses held under: erwin.hernandez@rutgers.edu and ehernandez@wlrk.com).
+  * Kendo UI for jQuery v2021.2.616: Erwin is currently a licensed Telerik DevCraft Complete developer (licenses held under: erwin.hernandez@rutgers.edu).
   * Countdown for jQuery v2.1.0 used under the MIT (http://keith-wood.name/licence.html) license.
