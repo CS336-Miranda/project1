@@ -14,9 +14,6 @@ try{
 	if(!sessionUserRole.trim().equals("rep")){
 		throw new Exception("This page requires customer representative permissions.");
 	}
-	%>
-	Welcome <%=sessionUser%>
-	<%
 }catch(Exception e){
 	String uri = request.getRequestURI();
 	//String pageName = uri.substring(uri.lastIndexOf("/")+1);

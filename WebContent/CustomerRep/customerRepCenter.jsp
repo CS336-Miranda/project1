@@ -10,6 +10,6 @@
 <meta charset="ISO-8859-1">
 </head>
 <body>
-   <a href='/BuyMe/Account/logout.jsp'>Log out</a> - Customer Rep Center
+   <h1>Customer Rep Center</h1>
 </body>
 </html>
