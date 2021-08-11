@@ -51,17 +51,32 @@ public class SalesReportAjaxController extends HttpServlet {
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();
 		
-			String sqlquery = "select sum(a.minPrice) minPrice,sum(a.minprice)/count(*) highest from auctions a where a.minPrice > a.initialPrice;";
+		String sqlquery =  "select sum(maxbid) TotalEarnings from (select max(b.bidAmount) maxbid, b.auctionId from  bids b  group by b.auctionId) t1 join auctions a using(auctionId) where a.winnerAlerted = '1' and maxbid >= minPrice;";
+//			//String sqlquery = "select max(b.bidAmount) bidId,title from  bids b join auctions a using(auctionId)" +
+//			//		"where winnerAlerted = '1' and bidAmount >= minPrice group by b.auctionId;";
+//
+//
+//				
+//		
+//		
+//					
 			PreparedStatement ps = con.prepareStatement(sqlquery);
 			ResultSet resultSet = ps.executeQuery();	
 			JSONConverter jc = new JSONConverter();
 			String jsonResult = jc.convertToJSON(resultSet);
 			PrintWriter out = response.getWriter();
 			
-			out.print(jsonResult);
-			db.closeConnection(con);
-
-			
+		out.print(jsonResult);
+		String sqlquery2 = "select max(b.bidAmount) earningsperitem,title from  bids b join auctions a using(auctionId)" +
+					"where winnerAlerted = '1' and bidAmount >= minPrice group by b.auctionId;";
+					
+						
+		PreparedStatement ps2 = con.prepareStatement(sqlquery2);
+		ResultSet resultSet2 = ps2.executeQuery();	
+		JSONConverter jc2 = new JSONConverter();
+		String jsonResult2 = jc2.convertToJSON(resultSet2);
+		out.print(jsonResult2);	
+		db.closeConnection(con);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -14,15 +14,19 @@ $(document).ready(function(){
 
 
 function GetSalesReport(){
+	
 	return $.ajax({
 		type:'GET',
 		url:'/BuyMe/SalesReportAjaxController?fn=getsalesreport',
+	
 		success: function(result){
+			//$("#TotalEarnings").html(result);
 			return result;
 		}
 	});
 }
 function InitializeGrid(gridData){
+	
 	var kendoGrid = $('#salesreport').data("kendoGrid");
 	//Check if the element is already initialized with the Kendo Grid widget
 	if (kendoGrid)//Grid is initialized
@@ -40,26 +44,29 @@ function InitializeGrid(gridData){
                     	//auctionId: {type:"number"},
                     	//closeTime: { type: "date" },
                     	//startTime: { type: "date" },
+						title: { type: "string" },
+                       earningsperitem: { type: "number" },
 						//title: { type: "string" },
-                       // description: { type: "string" },
-						highest: { type: "number" },
-						minPrice: { type: "number"}
+						TotalEarnings: { type: "number"}
                     }
                 }
             },
+
+
             pageSize: 12,
   			//sort: [{ field: "closeTime", dir: "asc" },{ field: "auctionId", dir: "desc" }]
-	sort: [{ field: "minPrice", dir: "asc" }]
+	//sort: [{ field: "bidId", dir: "asc" }]
         },
         height: 800,
         filterable: true,
         sortable: true,
         pageable: true,
-        columns: [/*{
+
+        columns: [{
                 field: "title",
-                title: "Auction Title"
+                title: "item"
             },
-            {
+            /*{
                 field: "description",
                 title: "Description"
             },
@@ -69,19 +76,21 @@ function InitializeGrid(gridData){
 				format: "{0:c2}"
             },*/
 			{
-                field: "highest",
+                field: "earningsperitem",
                 title: "Earnings Per Item",
                 format: "{0:c2}",
     			
             },
 			{
-				field: "minPrice",
+				field: "TotalEarnings",
 				title: "Total Earnings",
 				format:"{0:c2}",
 				
 				
 			}
+			
 		  ]
+
     });
 }
 
