@@ -2,7 +2,6 @@ package com.cs336.group10.pkg;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,7 +60,10 @@ public class QuestionsAjaxController extends HttpServlet {
 			 String jsonResult = jc.convertToJSON(resultSet);
 			
 			PrintWriter out = response.getWriter();
-	        out.print(jsonResult);
+	       out.print(jsonResult);
+	       
+	
+	        
 	        db.closeConnection(con);
 	    
 		} catch (Exception e) {
@@ -122,13 +124,14 @@ public class QuestionsAjaxController extends HttpServlet {
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();
-
+			
 			String question = request.getParameter("question");
 			String email = request.getParameter("email");
 			String timestamp = request.getParameter("timestamp");
 
 			response.setContentType("text/json");
 	        response.setCharacterEncoding("UTF-8");
+	        
 	        
 			String insert = "insert into questions (question, askTime, email) "
 					+ "VALUES (?,?,?)";
