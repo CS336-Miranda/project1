@@ -114,7 +114,9 @@ function InitializeQuestionsGrid(gridData){
                 title: "Answer"
             },{
                 field: "answerTime",
-                title: "Answered On"
+                title: "Answered On",
+				format: "{0:MM/dd/yyyy H:mm tt}",
+				template: "#: ConvertUTCToLocalTime(askTime) #"
             }
         ]
     });
