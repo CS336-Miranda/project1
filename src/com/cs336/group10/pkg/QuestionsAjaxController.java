@@ -2,7 +2,6 @@ package com.cs336.group10.pkg;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,6 +37,9 @@ public class QuestionsAjaxController extends HttpServlet {
 		  case "QuestionsAll":
 			  _questionsAll(request, response);
 		    break;
+		  case "QuestionsBy":
+			  _questionsBy(request, response);
+		    break;
 		  default:
 		    // code block
 		}
@@ -49,10 +51,43 @@ public class QuestionsAjaxController extends HttpServlet {
 			ApplicationDB db = new ApplicationDB();	
 		 	Connection con = db.getConnection();
 			
-		 	String sqlQuery = "SELECT * FROM questions;";
+		 	String sqlQuery = "SELECT * FROM questions ;";
 			PreparedStatement ps = con.prepareStatement(sqlQuery);
 			
 			 ResultSet resultSet = ps.executeQuery();	 
+		    
+			 JSONConverter jc = new JSONConverter();
+			 String jsonResult = jc.convertToJSON(resultSet);
+			
+			PrintWriter out = response.getWriter();
+	       out.print(jsonResult);
+	       
+	
+	        
+	        db.closeConnection(con);
+	    
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void _questionsBy(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			
+			String criteria = request.getParameter("val");
+			
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+		 	Connection con = db.getConnection();
+		 	
+		 	String sqlQuery = "SELECT * FROM questions " +
+		 					"WHERE question LIKE '%" + criteria + "%' OR " +
+		 					" answer LIKE '%" + criteria + "%'";
+		 					
+			PreparedStatement ps = con.prepareStatement(sqlQuery);
+			
+			ResultSet resultSet = ps.executeQuery();	 
 		    
 			 JSONConverter jc = new JSONConverter();
 			 String jsonResult = jc.convertToJSON(resultSet);
@@ -67,6 +102,7 @@ public class QuestionsAjaxController extends HttpServlet {
 		}
 	}
 
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -88,13 +124,14 @@ public class QuestionsAjaxController extends HttpServlet {
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();
-
+			
 			String question = request.getParameter("question");
 			String email = request.getParameter("email");
 			String timestamp = request.getParameter("timestamp");
 
 			response.setContentType("text/json");
 	        response.setCharacterEncoding("UTF-8");
+	        
 	        
 			String insert = "insert into questions (question, askTime, email) "
 					+ "VALUES (?,?,?)";

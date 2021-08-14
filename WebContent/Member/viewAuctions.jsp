@@ -23,22 +23,29 @@
 	</div>
 	
 	<div class="row">
-		<div class="col-2">
+		<div class="col-3">
 			<div class="input-group mb-3">
 			  <input type="text" class="form-control" id="userEmail" placeholder="Enter user's email...">
-			  <button class="btn btn-outline-secondary" type="button" id="email-filter">Search</button>
+			  <button class="btn btn-outline-secondary" type="button" id="email-filter">Search Involvement</button>
 			</div>
 		</div>
 		
 		<div class="col-2">
 			<div class="input-group">
-			  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+			  <select class="form-select" id="sortBy">
 			    <option selected>Sort By...</option>
-			    <option value="1">Title</option>
-			    <option value="2">Bid</option>
-			    <option value="3">Date</option>
+			    <option value="title">Title</option>
+			    <option value="highest">Bid</option>
+			    <option value="closeTime">Date</option>
 			  </select>
 			  <button class="btn btn-outline-secondary" type="button" id="sorting">Sort</button>
+			</div>
+		</div>
+		
+		<div class="col-2">
+			<div class="input-group mb-3">
+			  <input type="text" class="form-control" id="filter" placeholder="Enter search parameter..">
+			  <button class="btn btn-outline-secondary" type="button" id="filtering">Filter</button>
 			</div>
 		</div>
 

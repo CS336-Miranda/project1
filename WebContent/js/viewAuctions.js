@@ -12,12 +12,36 @@
 	});
 
 function InitializeEventHandlers(){
+	
+	//Filter by user
 	$('#email-filter').on('click', function(){
 		$.when(GetUserAuctions()).done(function(gridData){
 			gridData = JSON.parse(gridData).d;
 			UserAuctionsGrid(gridData);
 		});
-	});	
+	});
+	
+	//Sorting
+	$('#sorting').on('click', function(){
+		
+		var activity = "sort";
+		
+		$.when(GetAuctionsBy(activity)).done(function(gridData){
+			gridData = JSON.parse(gridData).d;
+			InitializeGrid(gridData);
+		});
+	});
+	
+	//Search
+	$('#filtering').on('click', function(){
+			
+			var activity = "filter";
+			
+			$.when(GetAuctionsBy(activity)).done(function(gridData){
+				gridData = JSON.parse(gridData).d;
+				InitializeGrid(gridData);
+			});
+		});
 }
 
 function GetAllAuctions(){
@@ -38,6 +62,33 @@ function GetUserAuctions(){
 		type:'GET',
 		url:'/BuyMe/ViewAuctionsAjaxController?fn=UserAuctions',
 		data:user,
+		success: function(result){
+			return result;
+		}
+	});
+}
+
+function GetAuctionsBy(activity){
+	
+	if(activity == "sort"){
+		
+		var criteria = {
+						val: $('#sortBy').val(),
+						act: activity
+						}
+		
+	}else{
+		var criteria = {
+						val: $('#filter').val(),
+						act: activity
+						}
+		
+	}
+	
+	return $.ajax({
+		type:'GET',
+		url:'/BuyMe/ViewAuctionsAjaxController?fn=AuctionsBy',
+		data:criteria,
 		success: function(result){
 			return result;
 		}
@@ -117,8 +168,7 @@ function InitializeGrid(gridData){
                     }
                 }
             },
-            pageSize: 12,
-  			sort: [{ field: "closeTime", dir: "asc" },{ field: "auctionId", dir: "desc" }]
+            pageSize: 12
         },
         height: 800,
         filterable: true,

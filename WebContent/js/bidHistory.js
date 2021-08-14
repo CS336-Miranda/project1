@@ -51,7 +51,7 @@ function InitializeGrid(gridData){
                 }
             },
             pageSize: 8,
-  			sort: { field: "date", dir: "desc" },
+  			sort: { field: "bidId", dir: "desc" },
         },
         height: 600,
         filterable: true,
@@ -60,7 +60,7 @@ function InitializeGrid(gridData){
         columns: [{
                 field: "date",
                 title: "Bid Date",
-                format: "{0:MM/dd/yyyy hh:mm tt}",
+                format: "{0:MM/dd/yyyy hh:mm:ss tt}",
 				width: 250
             },
             {

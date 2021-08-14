@@ -10,6 +10,13 @@ function InitializeEventHandlers(){
 			GetAllQuestions();
 		});
 	});
+	
+	$('#filtering').on('click', function(){
+		$.when(GetQuestionsBy()).done(function(gridData){
+			gridData = JSON.parse(gridData).d;
+			InitializeQuestionsGrid(gridData);
+		});
+	});
 }
 
 function PostQuestion(){
@@ -26,6 +33,20 @@ function PostQuestion(){
 		type:'POST',
 		url:'/BuyMe/QuestionsAjaxController',
 		data: queryData
+	});
+}
+
+function GetQuestionsBy(){
+	
+	var criteria = {val: $('#filter').val()}
+	
+	return $.ajax({
+		type:'GET',
+		url:'/BuyMe/QuestionsAjaxController?fn=QuestionsBy',
+		data:criteria,
+		success: function(result){
+			return result;
+		}
 	});
 }
 
@@ -93,7 +114,9 @@ function InitializeQuestionsGrid(gridData){
                 title: "Answer"
             },{
                 field: "answerTime",
-                title: "Answered On"
+                title: "Answered On",
+				format: "{0:MM/dd/yyyy H:mm tt}",
+				template: "#: ConvertUTCToLocalTime(askTime) #"
             }
         ]
     });
