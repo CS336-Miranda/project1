@@ -16,8 +16,8 @@
                 <input id="email" type="text" placeholder="Email" name="email" class="validate">  
                 <input id="password" type="password" placeholder="Password" name="password" class="validate"> 
                  
-              <input type="submit" id="btnSignIn" value="Register" disabled="disabled">
-              <div class="registerLink"><a href="login.jsp">Return to log in</a></div>
+              <input type="submit" id="btnSignIn" value="Register">
+           
             </div>
             <div class="shadow"></div>
         </div>

@@ -39,12 +39,12 @@
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		db.closeConnection(con);
 		//out.print("Registration succeeded <a href='login.jsp'>Return to login.</a>");
-        session.setAttribute("user", email); // the username will be stored in the session
+        //session.setAttribute("user", email); // the username will be stored in the session
         response.sendRedirect("../index.jsp");
 		
 	} catch (Exception ex) {
 		out.print(ex);
-		out.print("Registration failed. <a href='register.jsp'>Try again.</a>");
+		out.print("Registration failed. <a href='registerrep.jsp'>Try again.</a>");
 	}
 %>
 </body>
