@@ -27,6 +27,10 @@
 	     $(document).ready(function(){
 	    	 InitializeLoginRegisterEventHandlers(); 
 	     });
+	     function InitializeLoginRegisterEventHandlers(){
+	    	 $('.validate').on('keyup', function(){
+	    		 validateLoginRegisterForm(); 
+	    	 });
      </script>
    </body>
 </html>
