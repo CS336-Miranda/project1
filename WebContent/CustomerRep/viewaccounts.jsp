@@ -21,7 +21,7 @@
 				<button id="btnDeleteaccount" class="landingPageButton">Delete An Account</button>
 				</div>
 				  <div class="col-xs-1 col-lg-3">
-		         <button id="" class="landingPageButton">Edit Account Information</button>
+		         <button id="btnEditaccount" class="landingPageButton">Edit Account Information</button>
 		         
 		      </div>
 				</div>
@@ -109,6 +109,11 @@ function InitializeEventHandlers(){
 	$('#btnDeleteaccount').on('click', function(e){
 		e.preventDefault();
 		window.location.href='../CustomerRep/deleteaccount.jsp';
+		
+	});
+	$('#btnEditaccount').on('click', function(e){
+		e.preventDefault();
+		window.location.href='../CustomerRep/editaccount.jsp';
 		
 	});
 	

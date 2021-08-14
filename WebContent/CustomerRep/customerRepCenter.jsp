@@ -21,7 +21,7 @@
 		         
 		     </div>
 		      <div class="col-xs-1 col-lg-3">
-		         <button id="" class="landingPageButton">Answer Questions</button>
+		         <button id="btnAnswerquestions" class="landingPageButton">Answer Questions</button>
 		         
 		         
 		     </div>

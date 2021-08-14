@@ -15,6 +15,10 @@ function InitializeEventHandlers(){
 		e.preventDefault();
 		window.location.href='../CustomerRep/removebids.jsp';
 	});
+	$('#btnAnswerquestions').on('click', function(e){
+		e.preventDefault();
+		window.location.href='../CustomerRep/answerquestions.jsp';
+	});
 	
 	}/**
 
